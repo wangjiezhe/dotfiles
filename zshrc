@@ -15,11 +15,13 @@ export ZSH_THEME="einbisschenmath"
 # USER + HOST + DIRECTORY + GIT
 # export ZSH_THEME="intheloop"
 # export ZSH_THEME="strug"
+# export ZSH_THEME="agnoster"
 
 # USER + HOST + DIRECTORY + GIT + TIME
 # export ZSH_THEME="fino-time"
 # export ZSH_THEME="ys"
 # export ZSH_THEME="crcandy"
+# export ZSH_THEME="amuse"
 
 # USER + HOST + DIRECTORY + GIT + TIME(RIGHT)
 # export ZSH_THEME="pmcgee"
@@ -27,6 +29,9 @@ export ZSH_THEME="einbisschenmath"
 
 # Random
 # export ZSH_THEME="random"
+
+# Unkown
+# export ZSH_THEME="emotty"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -58,16 +63,22 @@ export ZSH_THEME="einbisschenmath"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# For plugin copydir and copyfile
+alias pbcopy="xclip -sel clip"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git yum cp history web-search rsync github vundle)
+plugins=(git fedora cp history web-search rsync github
+	# emoji emoji-clock emotty
+	docker docker-compose archlinux autojump autopep8 bgnotify colored-man colorize command-not-found
+	dircycle dirhistory dirpersist django emacs encode64 extract fab, fancy-ctrl-z fbterm gem adb
+	gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
+	copydir copyfile)
 export plugins
 
 source "$ZSH"/oh-my-zsh.sh
 
 # Customize to your needs...
-# source /etc/profile.d/autojump.zsh
 
 # Alias
 # alias sudo="sudo -E"
@@ -83,6 +94,13 @@ unalias gm
 alias gps="git push"
 alias lb="ls -B"
 alias l.="ls -d .*"
+alias ll="ls -lh"
+alias l="ls -lFh"
+alias la="ls -lAFh"
+alias zshrc='$EDITOR ~/.zshrc'
+alias h='history'
+alias hgrep="fc -El 0 | grep"
+alias help='man'
 alias cman="man -L zh_CN.utf8"		# Man in Chinese
 alias ack-grep="ack"
 alias mv="amv -g"
@@ -92,9 +110,13 @@ alias yuy="sudo yum upgrade -y"
 alias betty="$HOME/Downloads/github/betty/main.rb"
 alias bpython3="python3-bpython"
 alias dfh="df -h"
+alias dud='du -d 1 -h'
+alias duf='du -sh *'
+alias fd='find . -type d -name'
+alias ff='find . -type f -name'
 alias pingtest="ping -c5 162.105.130.1"
 PIP_UPGRADE="/home/wangjiezhe/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
-alias pip-upgrade="sudo -H python ${PIP_UPGRADE}"
+alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
 alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
 alias dmesg="dmesg --color=always"
@@ -113,6 +135,17 @@ alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
 alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'		# Used for wget
 alias -g gpp2="--http-proxy http://127.0.0.1:8087/"		# Used for gem
 alias -g cpp2="--proxy http://127.0.0.1:8087/"	# User for curl
+# Command line head / tail shortcuts
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g M="| most"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+alias -g P="2>&1| pygmentize -l pytb"
 
 # User's function
 # make a directory and open it
@@ -219,6 +252,7 @@ PATH=$PATH:/usr/local/MATLAB/R2014b/bin
 PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
 PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
 PATH=$PATH:/usr/lib/ccache/bin
+PATH=$PATH:$HOME/go/bin
 PATH=$PATH:.
 export PATH
 # Path for pkg-config
@@ -226,6 +260,7 @@ export PKG_CONFIG_PATH=usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkg
 
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export GOPATH="$HOME/go"
 
 # fpath=(/usr/share/zsh/$(zsh --version|awk '{print $2}')/functions ${fpath})
 
@@ -235,14 +270,16 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 #export XMODIFIERS="@im=fcitx"
 
 # Settings for cheat
-export EDITOR=/usr/bin/vim
+export EDITOR="vim"
 export CHEATCOLOR=true
 # source /home/wangjiezhe/Downloads/github/cheat/cheat/autocompletion/cheat.zsh
 fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
 
 # Enable autojump
-[[ -s /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh ]] \
-	&& source /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh
+# Already enabled by oh-my-zsh plugin autojump
+# source /etc/profile.d/autojump.zsh
+# [[ -s /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh ]] \
+# 	&& source /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh
 # Enable zsh tab completion
 autoload -U compinit && compinit -u
 # Always ignore case
@@ -257,7 +294,9 @@ export AUTOJUMP_IGNORE_CASE=1
 #fi
 
 # Colored man pages
-export PAGER="vimpager"
+# Already enabled by oh-my-zsh plugin colored-man
+# export PAGER="vimpager"
+# export PAGER="most"
 # man() {
 #     env LESS_TERMCAP_mb=$'\E[01;31m' \
 #     LESS_TERMCAP_md=$'\E[01;38;5;74m' \
@@ -273,7 +312,9 @@ export PAGER="vimpager"
 
 # autoload -Uz url-quote-magic
 
-source ~/.npm-completion.sh
+# npm completion
+# enabled by oh-my-zsh plugin npm
+# source ~/.npm-completion.sh
 
 PERL_MB_OPT="--install_base \"/home/wangjiezhe/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/wangjiezhe/perl5"; export PERL_MM_OPT;
@@ -319,13 +360,14 @@ if [ -s /usr/share/pinyin-completion/shell/pinyin-comp.zsh ]; then
 fi
 
 # Command not found
+# Already enabled by oh-my-zsh plugin command-not-found
 if [ -s /usr/share/doc/pkgfile/command-not-found.zsh ]; then
 	source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 
 # Coloerd less
-# export LESS='-R'
-# export LESSOPEN="| /bin/source-highlight-esc.sh %s"
+#export LESS='-R'
+#export LESSOPEN="| /bin/source-highlight-esc.sh %s"
 
 ptyless() {
     zmodload zsh/zpty
@@ -354,3 +396,10 @@ explain () {
 
 # added by travis gem
 [ -f /home/wangjiezhe/.travis/travis.sh ] && source /home/wangjiezhe/.travis/travis.sh
+
+# python 命令行模式 自动补全
+# export PYTHONSTARTUP=~/.pythonstartup.py
+
+export HISTCONTROL=ignorespace:erasedups
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
+
