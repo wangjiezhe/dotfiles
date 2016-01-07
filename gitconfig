@@ -5,17 +5,17 @@
 [color]
 	ui = true
 [core]
-	autocrlf = false
+	autocrlf = input
 	editor = vim
 	safecrlf = true
 	filemode = false
 [push]
 	default = simple
 [http]
-#	proxy = http://127.0.0.1:8087/
+#	proxy = http://0.0.0.0:8000/
 #	proxy = http://pkuproxy.phiy.me:1898/
 	postBuffer = 524288000
-#	sslCert = /home/wangjiezhe/Downloads/github/goagent/local/CA.crt
+#	sslCert = /opt/goproxy/GoAgent.crt
 [credential]
 #	helper = store
 	helper = /usr/lib/git-core/git-credential-gnome-keyring
@@ -28,9 +28,7 @@
 	sbt = subtree
 [merge]
 	tool = gvimdiff
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
 [diff "exif"]
 	textconv = exiftool
+[pack]
+#	windowMemory = 32m

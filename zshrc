@@ -70,8 +70,8 @@ alias pbcopy="xclip -sel clip"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git fedora cp history web-search rsync github
 	# emoji emoji-clock emotty
-	docker docker-compose archlinux autojump autopep8 bgnotify colored-man colorize command-not-found
-	dircycle dirhistory dirpersist django emacs encode64 extract fab, fancy-ctrl-z fbterm gem adb
+	docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize command-not-found
+	dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z fbterm gem adb
 	gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
 	copydir copyfile)
 export plugins
@@ -126,21 +126,22 @@ alias dmesg="dmesg --color=always"
 alias sl=ls
 alias sudp=sudo
 alias suod=sudo
-alias vi=vim
+alias vi="emacsclient -t"
 # Global alias
 alias -g quiet="-q 2>/dev/null"		# Used for yum
 alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'		# Used for wget
 alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"		# Used for gem
 alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'		# Used for wget
-alias -g gpp2="--http-proxy http://127.0.0.1:8087/"		# Used for gem
-alias -g cpp2="--proxy http://127.0.0.1:8087/"	# User for curl
+alias -g wpp2='-e "http_proxy=http://0.0.0.0:8000/"'		# Used for wget
+alias -g gpp2="--http-proxy http://0.0.0.0:8000/"		# Used for gem
+alias -g cpp2="--proxy http://0.0.0.0:8000/"	# User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
 alias -g L="| less"
 alias -g M="| most"
+alias -g PP="| percol"
 alias -g LL="2>&1 | less"
 alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
@@ -242,25 +243,27 @@ gsl () {
 }
 
 # Path
-PATH=/sbin:/usr/sbin:/usr/local/sbin::/bin:/usr/bin:/usr/local/bin
-PATH=$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.vim/bin
-PATH=$PATH:/usr/lib64/sagemath/local/bin
-PATH=$PATH:$HOME/Downloads/depot_tools
-PATH=$PATH:/usr/lib64/qt4/bin
+#PATH=$PATH/sbin:/usr/sbin:/usr/local/sbin::/bin:/usr/bin:/usr/local/bin
+PATH=$HOME/.cask/bin:$PATH
+PATH=$HOME/bin:$HOME/.local/bin:$HOME/.vim/bin:$PATH
+#PATH=$PATH:/usr/lib64/sagemath/local/bin
+#PATH=$PATH:/usr/lib/TeXmacs/bin
+#PATH=$PATH:$HOME/Downloads/depot_tools
+#PATH=$PATH:/usr/lib64/qt4/bin
 PATH=$PATH:$HOME/.linuxbrew/bin
-PATH=$PATH:/usr/local/MATLAB/R2014b/bin
-PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
+#PATH=$PATH:/usr/local/MATLAB/R2014b/bin
+#PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
 PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
-PATH=$PATH:/usr/lib/ccache/bin
+#PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
 PATH=$PATH:.
 export PATH
 # Path for pkg-config
-export PKG_CONFIG_PATH=usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
+#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
 
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-export GOPATH="$HOME/go"
+export MANPATH=$MANPATH:$HOME/.linuxbrew/share/man
+export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
+export GOPATH=$HOME/go
 
 # fpath=(/usr/share/zsh/$(zsh --version|awk '{print $2}')/functions ${fpath})
 
@@ -270,7 +273,9 @@ export GOPATH="$HOME/go"
 #export XMODIFIERS="@im=fcitx"
 
 # Settings for cheat
-export EDITOR="vim"
+#export EDITOR="vim"
+#export ALTERNATE_EDITOR="emacs" EDITOR="emacsclient" VISUAL="emacsclient"
+export ALTERNATE_EDITOR="" EDITOR="emacsclient"
 export CHEATCOLOR=true
 # source /home/wangjiezhe/Downloads/github/cheat/cheat/autocompletion/cheat.zsh
 fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
@@ -403,3 +408,38 @@ explain () {
 export HISTCONTROL=ignorespace:erasedups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
 
+TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+
+# Interactive pgrep/pkill with percol
+function ppgrep() {
+    if [[ $1 == "" ]]; then
+	PERCOL=percol
+    else
+	PERCOL="percol --query $1"
+    fi
+    ps aux | eval $PERCOL | awk '{ print $2 }'
+}
+function ppkill() {
+    if [[ $1 =~ "^-" ]]; then
+	QUERY=""
+    else
+	QUERY=$1
+	[[ $# > 0 ]] && shift
+    fi
+    ppgrep $QUERY | xargs kill $*
+}
+
+# zsh history search with percol
+function exists { which $1 &> /dev/null }
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi

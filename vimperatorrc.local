@@ -1,0 +1,11 @@
+" smart search
+set incsearch
+set smartcase
+set hlsearch
+
+" tab number
+" set tabnumbers=true
+
+" tab browser
+noremap J gT
+noremap K gt

@@ -1,4 +1,4 @@
-!! ~/.Xdefaults
+!! ~/.Xdefaults or ~/.Xresources
 URxvt*depth: 32
 URxvt*geometry: 132x43
 

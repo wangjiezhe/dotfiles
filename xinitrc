@@ -30,9 +30,10 @@ fi
 setxkbmap -option ctrl:swapcaps
 setxkbmap -option terminate:ctrl_alt_bksp
 setxkbmap -option altwin:meta_alt
+#setxkbmap -option altwin:meta_win
 
-# export GTK_IM_MODULES="ibus"
-# export QT_IM_MODULES="ibus"
+# export GTK_IM_MODULE="ibus"
+# export QT_IM_MODULE="ibus"
 # export XMODIFIERS="@im=ibus"
 # ibus-daemon -x -d &
 export GTK_IM_MODULE="fcitx"
@@ -44,7 +45,7 @@ fcitx -D &
 hsetroot -solid '#000000' &
 compton -b
 
-xscreensaver -nosplash &
+# xscreensaver -nosplash &
 
 syndaemon -t -k -i 2 -d
 # -R
@@ -52,10 +53,6 @@ syndaemon -t -k -i 2 -d
 # unlock keyring
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export SSH_AUTH_SOCK
-
-# start pulseaudio and system tray for it
-start-pulseaudio-x11 &
-pasystray &
 
 # start clipboard
 clipit &
@@ -67,10 +64,8 @@ clipit &
 # transmission
 transmission-gtk -m &
 
-# start terminal at autostart
-urxvtd -q -f -o
-# urxvtc -e 'vim +q'
-urxvtc
+# shutter
+#shutter --min_at_startup &
 
 # automount
 pkttyagent &
@@ -83,6 +78,19 @@ start-conky &
 
 # vim
 # vim +q
+# urxvtc -e 'vim +q'
+mkdir -p /tmp/vim_undodir
+
+# start terminal at autostart
+urxvtd -q -f -o
+urxvtc
+
+# start pulseaudio and system tray for it
+start-pulseaudio-x11
+pasystray &
+
+# emacs
+emacs --daemon
 
 exec awesome
 # exec /usr/bin/dbus-launch --auto-syntax --exit-with-session awesome
