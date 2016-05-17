@@ -1,9 +1,9 @@
 [submodule "vim-config"]
 	path = vim-config
-	url = git@github.com:wangjiezhe/vim-config.git
+	url = https://github.com/wangjiezhe/vim-config.git
 [submodule "conky"]
 	path = conky
-	url = git@github.com:wangjiezhe/conky.git
+	url = https://github.com/wangjiezhe/conky.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
