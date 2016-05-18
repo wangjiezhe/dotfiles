@@ -46,7 +46,7 @@ URxvt*preeditType: Root
 !! Perl Extension
 ! URxvt*perl-lib: /usr/lib/urxvt/perl/
 URxvt*perl-ext-common: default,matcher,keyboard-select,url-select,clipboard,tabbedex,vtwheel
-URxvt*url-launcher: firefox
+URxvt*url-launcher: chromium
 URxvt*matcher.button: 1
 URxvt*keysym.M-s: perl:keyboard-select:search
 URxvt*keysym.M-u: perl:url-select:select_next
@@ -56,7 +56,7 @@ URxvt*keysym.m-v: perl:clipboard:paste
 ! URxvt*keysym.Shift-Ctrl-C: perl:clipboard:copy
 ! URxvt*keysym.Shift-Ctrl-V: perl:clipboard:paste
 ! URxvt*keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt*url-select.launcher: firefox
+URxvt*url-select.launcher: chromium
 URxvt*url-select.underline: true
 URxvt*tabbed.tabbar-fg: 2
 URxvt*tabbed.tabbar-bg: 0

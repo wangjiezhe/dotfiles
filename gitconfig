@@ -12,10 +12,10 @@
 [push]
 	default = simple
 [http]
-#	proxy = http://0.0.0.0:8000/
+	proxy = http://127.0.0.1:8087/
 #	proxy = http://pkuproxy.phiy.me:1898/
 	postBuffer = 524288000
-#	sslCert = /opt/goproxy/GoAgent.crt
+	sslVerify = false
 [credential]
 #	helper = store
 	helper = /usr/lib/git-core/git-credential-gnome-keyring
@@ -26,9 +26,15 @@
 	st = status -sb
 	tags = tag -l
 	sbt = subtree
+	dsf = "!f() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; f"
 [merge]
 	tool = gvimdiff
 [diff "exif"]
 	textconv = exiftool
 [pack]
 #	windowMemory = 32m
+[pager]
+	# diff = diff-so-fancy | less --tabs=4 -RFX
+	# show = diff-so-fancy | less --tabs=4 -RFX
+[commit]
+	# gpgsign = true

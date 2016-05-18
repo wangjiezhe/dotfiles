@@ -1,7 +1,7 @@
 " smart search
-set incsearch
-set smartcase
-set hlsearch
+"set incsearch
+"set smartcase
+"set hlsearch
 
 " tab number
 " set tabnumbers=true

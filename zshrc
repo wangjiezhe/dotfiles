@@ -68,12 +68,12 @@ alias pbcopy="xclip -sel clip"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git fedora cp history web-search rsync github
-	# emoji emoji-clock emotty
-	docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize command-not-found
-	dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z fbterm gem adb
-	gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
-	copydir copyfile)
+plugins=(gitfast git-extras fedora cp history web-search rsync github
+        # emoji emoji-clock emotty
+        docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize command-not-found
+        dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z fbterm gem adb
+        gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
+        copydir copyfile)
 export plugins
 
 source "$ZSH"/oh-my-zsh.sh
@@ -86,7 +86,7 @@ alias gsubu="git submodule update --init --recursive"
 alias gfu="git fetch upstream"
 alias gmuo="git merge upstream/master origin/master"
 alias gmms="git merge master src"
-alias glga="git log --stat --decorate --graph --all"
+alias glga="git log --stat --decorate --graph --all --show-signature"
 # unalias gap
 unalias gp
 unalias gsi
@@ -126,15 +126,18 @@ alias dmesg="dmesg --color=always"
 alias sl=ls
 alias sudp=sudo
 alias suod=sudo
-alias vi="emacsclient -t"
+alias vi=vim
+alias e="emacsclient -t"
+alias ee="emacs -nw"
+alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 # Global alias
 alias -g quiet="-q 2>/dev/null"		# Used for yum
 alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'		# Used for wget
 alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"		# Used for gem
 alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://0.0.0.0:8000/"'		# Used for wget
-alias -g gpp2="--http-proxy http://0.0.0.0:8000/"		# Used for gem
-alias -g cpp2="--proxy http://0.0.0.0:8000/"	# User for curl
+alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'		# Used for wget
+alias -g gpp2="--http-proxy http://127.0.0.1:8087/"		# Used for gem
+alias -g cpp2="-k --proxy http://127.0.0.1:8087/"	# User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
@@ -151,95 +154,95 @@ alias -g P="2>&1| pygmentize -l pytb"
 # User's function
 # make a directory and open it
 mkcd() {
-	dir="$*";
-	mkdir -p "$dir" && cd "$dir";
+        dir="$*";
+        mkdir -p "$dir" && cd "$dir";
 }
 # Safer curl | sh'ing
 curlsh() {
-	file=$(mktemp -t curlsh.XXXXXX) || { echo "Failed creating file"; return; }
-	curl -s "$1" > $file || { echo "Failed to curl file"; return; }
-	$EDITOR $file || { echo "Editor quit with error code"; return; }
-	sh $file;
-	rm $file;
+        file=$(mktemp -t curlsh.XXXXXX) || { echo "Failed creating file"; return; }
+        curl -s "$1" > $file || { echo "Failed to curl file"; return; }
+        $EDITOR $file || { echo "Editor quit with error code"; return; }
+        sh $file;
+        rm $file;
 }
 # Open the next directory
 cdnext() {
-	oldIFS=IFS
-	IFS=,
-	count=1
-	for file in $(ls -F ..|grep /|tr '\n' ,)
-	do
-		alldirs[count]="$file"
-		let count++
-	done
-	IFS=$oldIFS
+        oldIFS=IFS
+        IFS=,
+        count=1
+        for file in $(ls -F ..|grep /|tr '\n' ,)
+        do
+                alldirs[count]="$file"
+                let count++
+        done
+        IFS=$oldIFS
 
-	currentdir=$(pwd|sed "s,^.*/\([^/]*\)$,\1/,")
-	for (( num=1; num<count; num++ ))
-	do
-		[ $alldirs[$num] = $currentdir ] && break
-	done
-	let num++
-	let count--
-	if [ $num -lt $count ]
-	then
-		nextdir="../$alldirs[$num]"
-	else
-		echo "All directories have been circulated. Restart from the first."
-		nextdir="../$alldirs[1]"
-	fi
+        currentdir=$(pwd|sed "s,^.*/\([^/]*\)$,\1/,")
+        for (( num=1; num<count; num++ ))
+        do
+                [ $alldirs[$num] = $currentdir ] && break
+        done
+        let num++
+        let count--
+        if [ $num -lt $count ]
+        then
+                nextdir="../$alldirs[$num]"
+        else
+                echo "All directories have been circulated. Restart from the first."
+                nextdir="../$alldirs[1]"
+        fi
 
-	cd "$nextdir"
+        cd "$nextdir"
 }
 # Correctly display Chinese in command `tree`
 # tree() {
-# 	/usr/bin/tree $* | ascii2uni -aK 2>/dev/null
+#       /usr/bin/tree $* | ascii2uni -aK 2>/dev/null
 # }
 
 duh() {
-	du -d1 -h -a $* | sort -h
+        du -d1 -h -a $* | sort -h
 }
 
 # Find the rpm that provides the command
 rpmfind() {
-	if [[ $# -eq 1 ]]
-	then
-		rpm -qf $(which $1)
-	else
-		echo "Usage: rpmfind command"
-	fi
+        if [[ $# -eq 1 ]]
+        then
+                rpm -qf $(which $1)
+        else
+                echo "Usage: rpmfind command"
+        fi
 }
 
 # ps grep
 psg () {
-	ps -eaf | grep -i "$@" | grep -v -e "grep .* -i"
+        ps -eaf | grep -i "$@" | grep -v -e "grep .* -i"
 }
 
 psgw () {
-	ps auxww | grep -i "$@" | grep -v -e "grep .* -i"
+        ps auxww | grep -i "$@" | grep -v -e "grep .* -i"
 }
 
 export YUMDIR=/etc/yum.repos.d
 
 # git subtree push
 gsp () {
-	git subtree push -P $1 $1 master
+        git subtree push -P $1 $1 master
 }
 
 # git subtree push all
 gspa () {
-	for r in $(git remote)
-	do
-		if [[ $r != "origin" ]] && [[ $r != "upstream" ]]
-		then
-			git subtree push -P $r $r master
-		fi
-	done
+        for r in $(git remote)
+        do
+                if [[ $r != "origin" ]] && [[ $r != "upstream" ]]
+                then
+                        git subtree push -P $r $r master
+                fi
+        done
 }
 
 # git subtree pull
 gsl () {
-	git subtree pull -P $1 $1 master
+        git subtree pull -P $1 $1 master
 }
 
 # Path
@@ -253,7 +256,7 @@ PATH=$HOME/bin:$HOME/.local/bin:$HOME/.vim/bin:$PATH
 PATH=$PATH:$HOME/.linuxbrew/bin
 #PATH=$PATH:/usr/local/MATLAB/R2014b/bin
 #PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
-PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
+PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
 PATH=$PATH:.
@@ -273,9 +276,9 @@ export GOPATH=$HOME/go
 #export XMODIFIERS="@im=fcitx"
 
 # Settings for cheat
-#export EDITOR="vim"
+export EDITOR="vim"
 #export ALTERNATE_EDITOR="emacs" EDITOR="emacsclient" VISUAL="emacsclient"
-export ALTERNATE_EDITOR="" EDITOR="emacsclient"
+# export ALTERNATE_EDITOR="" EDITOR="emacsclient -t -a emacs"
 export CHEATCOLOR=true
 # source /home/wangjiezhe/Downloads/github/cheat/cheat/autocompletion/cheat.zsh
 fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
@@ -284,7 +287,7 @@ fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
 # Already enabled by oh-my-zsh plugin autojump
 # source /etc/profile.d/autojump.zsh
 # [[ -s /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh ]] \
-# 	&& source /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh
+#       && source /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh
 # Enable zsh tab completion
 autoload -U compinit && compinit -u
 # Always ignore case
@@ -347,8 +350,8 @@ compctl -K _pip_completion pip pip3
 setopt nohashdirs
 
 # Bing Dict Encapsulation
-function sword() 
-{ 
+function sword()
+{
     local word;
     word=$1;
     word=$(echo $word | tr ' ' '+');
@@ -361,13 +364,13 @@ function sword()
 
 # Pinyin completion
 if [ -s /usr/share/pinyin-completion/shell/pinyin-comp.zsh ]; then
-	source /usr/share/pinyin-completion/shell/pinyin-comp.zsh
+        source /usr/share/pinyin-completion/shell/pinyin-comp.zsh
 fi
 
 # Command not found
 # Already enabled by oh-my-zsh plugin command-not-found
 if [ -s /usr/share/doc/pkgfile/command-not-found.zsh ]; then
-	source /usr/share/doc/pkgfile/command-not-found.zsh
+        source /usr/share/doc/pkgfile/command-not-found.zsh
 fi
 
 # Coloerd less
@@ -413,18 +416,18 @@ TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 # Interactive pgrep/pkill with percol
 function ppgrep() {
     if [[ $1 == "" ]]; then
-	PERCOL=percol
+        PERCOL=percol
     else
-	PERCOL="percol --query $1"
+        PERCOL="percol --query $1"
     fi
     ps aux | eval $PERCOL | awk '{ print $2 }'
 }
 function ppkill() {
     if [[ $1 =~ "^-" ]]; then
-	QUERY=""
+        QUERY=""
     else
-	QUERY=$1
-	[[ $# > 0 ]] && shift
+        QUERY=$1
+        [[ $# > 0 ]] && shift
     fi
     ppgrep $QUERY | xargs kill $*
 }
@@ -443,3 +446,10 @@ if exists percol; then
     zle -N percol_select_history
     bindkey '^R' percol_select_history
 fi
+
+# z
+[ -s /usr/lib/z.sh ] && . /usr/lib/z.sh
+export _Z_OWNER=wangjiezhe
+
+# fish shell like syntax highlighting
+source $HOME/Downloads/github/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

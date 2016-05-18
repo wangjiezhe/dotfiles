@@ -15,6 +15,7 @@ alias cman="man -L zh_CN.utf8"
 alias cp="acp -g"
 alias mv="amv -g"
 
+source /usr/share/bash-completion/bash_completion
 source ~/.git-completion.bash
 # source /etc/profile.d/autojump.bash
 # Enable autojump

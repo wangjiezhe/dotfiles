@@ -1,0 +1,6 @@
+setxkbmap -option ctrl:swapcaps
+setxkbmap -option terminate:ctrl_alt_bksp
+export LD_LIBRARY_PATH=/usr/lib64:/usr/lib:$LD_LIBRARY_PATH
+# export GTK_IM_MODULES="ibus"
+# export QT_IM_MODULES="xim"
+# export XMODIFIERS="@im=ibus"
