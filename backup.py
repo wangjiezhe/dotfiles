@@ -5,11 +5,11 @@ import os
 import shutil
 import argparse
 
-backup_dir = os.path.dirname(os.path.realpath(__file__))
-# backup_dir = os.getcwd()
-home_dir = os.getenv('HOME')
+BACKUP_DIR = os.path.dirname(os.path.realpath(__file__))
+# BACKUP_DIR = os.getcwd()
+HOME_DIR = os.getenv('HOME')
 
-conf_group_0 = (
+CONF_GROUP_0 = (
     '.bashrc', '.bash_profile',
     '.fbtermrc', '.tmux.conf',
     '.gemrc', '.npmrc',
@@ -22,7 +22,7 @@ conf_group_0 = (
     '.zlogin', '.zprofile', '.zshrc',
 )
 
-conf_group_1 = (
+CONF_GROUP_1 = (
     '.mplayer/config',
     '.cargo/config',
     '.gnupg/gpg.conf',
@@ -31,24 +31,24 @@ conf_group_1 = (
     '.ipython/extensions/version_information.py',
 )
 
-conf_group_2 = (
+CONF_GROUP_2 = (
     ('.config/mpv/mpv.conf', 'mpv/mpv.conf'),
 )
 
 
-def backup(src_dir=home_dir, dst_dir=backup_dir):
-    for conf in conf_group_0:
+def backup(src_dir=HOME_DIR, dst_dir=BACKUP_DIR):
+    for conf in CONF_GROUP_0:
         src = os.path.join(src_dir, conf)
         dst = os.path.join(dst_dir, conf.lstrip('.'))
         shutil.copy(src, dst)
 
-    for conf in conf_group_1:
+    for conf in CONF_GROUP_1:
         src = os.path.join(src_dir, conf)
         dst = os.path.join(dst_dir, conf.lstrip('.'))
         os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
         shutil.copy(src, dst)
 
-    for conf in conf_group_2:
+    for conf in CONF_GROUP_2:
         src = os.path.join(src_dir, conf[0])
         dst = os.path.join(dst_dir, conf[1])
         os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
