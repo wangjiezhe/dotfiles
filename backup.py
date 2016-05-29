@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import shutil
 import argparse
 
@@ -32,7 +33,8 @@ CONF_GROUP_1 = (
 )
 
 CONF_GROUP_2 = (
-    ('.config/mpv/mpv.conf', 'mpv/mpv.conf'),
+    '.config/mpv/mpv.conf',
+    '.config/btsync/btsync.conf'
 )
 
 
@@ -49,8 +51,8 @@ def backup(src_dir=HOME_DIR, dst_dir=BACKUP_DIR):
         shutil.copy(src, dst)
 
     for conf in CONF_GROUP_2:
-        src = os.path.join(src_dir, conf[0])
-        dst = os.path.join(dst_dir, conf[1])
+        src = os.path.join(src_dir, conf)
+        dst = os.path.join(dst_dir, re.sub(r'^.*?/', '', conf))
         os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
         shutil.copy(src, dst)
 
