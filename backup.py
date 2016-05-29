@@ -15,6 +15,7 @@ conf_group_0 = (
     '.gemrc', '.npmrc',
     '.gitconfig', '.hgrc',
     '.mpdconf',
+    '.pylintrc',
     '.racketrc',
     '.vimperatorrc.local',
     '.xinitrc', '.xprofile', '.Xresources',
