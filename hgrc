@@ -1,5 +1,5 @@
-# [http_proxy]
-# host=127.0.0.1:8087
+#[http_proxy]
+#host=pkuproxy.phiy.me:1898
 
 [extensions]
 purge =

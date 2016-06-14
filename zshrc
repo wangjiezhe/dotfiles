@@ -41,7 +41,7 @@ export ZSH_THEME="einbisschenmath"
 # CASE_SENSITIVE="true"
 
 # Uncomment this to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
@@ -71,9 +71,10 @@ alias pbcopy="xclip -sel clip"
 plugins=(gitfast git-extras fedora cp history web-search rsync github
         # emoji emoji-clock emotty
         docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize command-not-found
-        dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z fbterm gem adb
+        dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z gem adb
         gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
-        copydir copyfile)
+        copydir copyfile
+		zshmarks)
 export plugins
 
 source "$ZSH"/oh-my-zsh.sh
@@ -94,9 +95,9 @@ unalias gm
 alias gps="git push"
 alias lb="ls -B"
 alias l.="ls -d .*"
-alias ll="ls -lh"
-alias l="ls -lFh"
-alias la="ls -lAFh"
+alias l="ls -lh"
+alias la="ls -A"
+alias ll="ls -lAh"
 alias zshrc='$EDITOR ~/.zshrc'
 alias h='history'
 alias hgrep="fc -El 0 | grep"
@@ -119,7 +120,7 @@ PIP_UPGRADE="/home/wangjiezhe/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/
 alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
 alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
-alias dmesg="dmesg --color=always"
+alias dmesg="dmesg --color=always --reltime"
 # alias mpv="mpv --hwdec=vaapi --vo=vaapi"
 # alias move-mp3="mv ~/Downloads/*.mp3 ~/Documents/语音与听说词汇/网测录音"
 # alias pip-upgrade="yolk -U|cut -d ' ' -f 1|xargs pip install --upgrade"
@@ -130,6 +131,8 @@ alias vi=vim
 alias e="emacsclient -t"
 alias ee="emacs -nw"
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
+alias sc="systemctl"
+alias jj='jump'
 # Global alias
 alias -g quiet="-q 2>/dev/null"		# Used for yum
 alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'		# Used for wget
@@ -141,15 +144,16 @@ alias -g cpp2="-k --proxy http://127.0.0.1:8087/"	# User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
-alias -g G='| grep'
+alias -g G='| grep -i'
 alias -g L="| less"
 alias -g M="| most"
-alias -g PP="| percol"
+alias -g P="| percol"
+alias -g GG="2>/dev/null | grep -i"
 alias -g LL="2>&1 | less"
 alias -g CA="2>&1 | cat -A"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
-alias -g P="2>&1| pygmentize -l pytb"
+alias -g NE="2>/dev/null"
+alias -g NUL=">/dev/null 2>&1"
+alias -g PP="2>&1| pygmentize -l pytb"
 
 # User's function
 # make a directory and open it
@@ -246,9 +250,9 @@ gsl () {
 }
 
 # Path
-#PATH=$PATH/sbin:/usr/sbin:/usr/local/sbin::/bin:/usr/bin:/usr/local/bin
-PATH=$HOME/.cask/bin:$PATH
+#PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin::/bin:/usr/bin:/usr/local/bin
 PATH=$HOME/bin:$HOME/.local/bin:$HOME/.vim/bin:$PATH
+PATH=$HOME/.cask/bin:$PATH
 #PATH=$PATH:/usr/lib64/sagemath/local/bin
 #PATH=$PATH:/usr/lib/TeXmacs/bin
 #PATH=$PATH:$HOME/Downloads/depot_tools
