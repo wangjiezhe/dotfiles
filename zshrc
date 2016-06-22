@@ -133,6 +133,7 @@ alias ee="emacs -nw"
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias sc="systemctl"
 alias jj='jump'
+alias ssh-gbk='luit -encoding gbk ssh'
 # Global alias
 alias -g quiet="-q 2>/dev/null"		# Used for yum
 alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'		# Used for wget
