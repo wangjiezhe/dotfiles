@@ -58,7 +58,7 @@ def backup(src_dir=HOME_DIR, dst_dir=BACKUP_DIR):
 
 
 def restore():
-    pass
+    raise NotImplementedError('restore')
 
 
 class MyParser(argparse.ArgumentParser):
@@ -66,7 +66,7 @@ class MyParser(argparse.ArgumentParser):
     def __init__(self):
         description = 'Backup dot files or restore for backups'
         super().__init__(description=description)
-        self.add_argument('--restore', action='store_true', dest='isrestore',
+        self.add_argument('--restore', action='store_true',
                           help='restore from backups')
 
 
@@ -74,7 +74,7 @@ def main():
     myparser = MyParser()
     args = myparser.parse_args()
 
-    if args.isrestore:
+    if args.restore:
         restore()
     else:
         backup()
