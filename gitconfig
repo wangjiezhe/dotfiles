@@ -13,7 +13,7 @@
 	default = simple
 [http]
 #	proxy = http://127.0.0.1:8087/
-#	proxy = http://pkuproxy.phiy.me:1898/
+	proxy = http://pkuproxy.phiy.me:1898/
 	postBuffer = 524288000
 #	sslVerify = false
 [credential]
@@ -41,3 +41,7 @@
 	# gpgsign = true
 [magit]
 	extension = wip-save
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less

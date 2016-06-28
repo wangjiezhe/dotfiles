@@ -74,7 +74,7 @@ plugins=(gitfast git-extras fedora cp history web-search rsync github
         dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z gem adb
         gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
         copydir copyfile
-		zshmarks)
+        zshmarks)
 export plugins
 
 source "$ZSH"/oh-my-zsh.sh
@@ -102,7 +102,7 @@ alias zshrc='$EDITOR ~/.zshrc'
 alias h='history'
 alias hgrep="fc -El 0 | grep"
 alias help='man'
-alias cman="man -L zh_CN.utf8"		# Man in Chinese
+alias cman="man -L zh_CN.utf8"        # Man in Chinese
 alias ack-grep="ack"
 alias mv="amv -g"
 alias cp="acp -g"
@@ -135,13 +135,13 @@ alias sc="systemctl"
 alias jj='jump'
 alias ssh-gbk='luit -encoding gbk ssh'
 # Global alias
-alias -g quiet="-q 2>/dev/null"		# Used for yum
-alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'		# Used for wget
-alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"		# Used for gem
+alias -g quiet="-q 2>/dev/null"        # Used for yum
+alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
+alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
 alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'		# Used for wget
-alias -g gpp2="--http-proxy http://127.0.0.1:8087/"		# Used for gem
-alias -g cpp2="-k --proxy http://127.0.0.1:8087/"	# User for curl
+alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'        # Used for wget
+alias -g gpp2="--http-proxy http://127.0.0.1:8087/"        # Used for gem
+alias -g cpp2="-k --proxy http://127.0.0.1:8087/"    # User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
@@ -301,9 +301,9 @@ export AUTOJUMP_IGNORE_CASE=1
 # Swap Ctrl_L and CapsLock
 # Enable Ctrl+Alt+Backspace to kill X
 #if [[ -n $DISPLAY ]]; then
-#		setxkbmap -option ctrl:swapcaps
-#		setxkbmap -option terminate:ctrl_alt_bksp
-#		xmodmap ~/.xmodmap 2>/dev/null
+#        setxkbmap -option ctrl:swapcaps
+#        setxkbmap -option terminate:ctrl_alt_bksp
+#        xmodmap ~/.xmodmap 2>/dev/null
 #fi
 
 # Colored man pages
@@ -419,43 +419,12 @@ export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
 
 TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 
-# Interactive pgrep/pkill with percol
-function ppgrep() {
-    if [[ $1 == "" ]]; then
-        PERCOL=percol
-    else
-        PERCOL="percol --query $1"
-    fi
-    ps aux | eval $PERCOL | awk '{ print $2 }'
-}
-function ppkill() {
-    if [[ $1 =~ "^-" ]]; then
-        QUERY=""
-    else
-        QUERY=$1
-        [[ $# > 0 ]] && shift
-    fi
-    ppgrep $QUERY | xargs kill $*
-}
-
-# zsh history search with percol
-function exists { which $1 &> /dev/null }
-if exists percol; then
-    function percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
-
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
-fi
-
 # z
 [ -s /usr/lib/z.sh ] && . /usr/lib/z.sh
 export _Z_OWNER=wangjiezhe
 
-# fish shell like syntax highlighting
-source $HOME/Downloads/github/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# percol
+source /usr/share/zsh/plugins/percol/percol.plugin.zsh
+
+# zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

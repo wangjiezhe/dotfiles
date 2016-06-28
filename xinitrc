@@ -82,8 +82,6 @@ pcmanfm -d &
 start-conky &
 
 # vim
-# vim +q
-# urxvtc -e 'vim +q'
 mkdir -p /tmp/vim_undodir
 
 # start terminal at autostart
