@@ -97,7 +97,7 @@ systemctl start goagent
 # systemctl start goproxy
 
 # start create_ap if connected with ethernet
-if [[ -n $(grep enp5s0 /proc/net/route) ]]; then
+if [[ -n $(grep enp5s0 /proc/net/route) ]] && ! $(systemctl is-active create_ap); then
     systemctl start create_ap
 fi
 
