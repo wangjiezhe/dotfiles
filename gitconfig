@@ -12,10 +12,10 @@
 [push]
 	default = simple
 [http]
-#	proxy = http://127.0.0.1:8087/
-	proxy = http://pkuproxy.phiy.me:1898/
+	proxy = http://127.0.0.1:8087/
+#	proxy = http://pkuproxy.phiy.me:1898/
 	postBuffer = 524288000
-#	sslVerify = false
+	sslVerify = false
 [credential]
 #	helper = store
 	helper = /usr/lib/git-core/git-credential-gnome-keyring
