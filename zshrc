@@ -440,6 +440,5 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
-
 # zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

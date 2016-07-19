@@ -73,8 +73,8 @@ transmission-gtk -m &
 shutter --min_at_startup &
 
 # automount
-pkttyagent &
-udiskie -As &
+# pkttyagent &
+# udiskie -As &
 # devmon &
 pcmanfm -d &
 
@@ -93,7 +93,7 @@ start-pulseaudio-x11
 pasystray &
 
 # start goagent
-systemctl start goagent
+# systemctl start goagent
 # systemctl start goproxy
 
 # start create_ap if connected with ethernet
