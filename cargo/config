@@ -1,2 +1,4 @@
 [http]
 proxy = "http://pkuproxy.phiy.me:1898"
+# proxy = "http://127.0.0.1:8087"
+# cainfo = /usr/share/goagent/local/CA.crt

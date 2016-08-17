@@ -417,7 +417,8 @@ explain () {
 export HISTCONTROL=ignorespace:erasedups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
 
-TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+# TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+eval $(thefuck --alias)
 
 # z
 [ -s /usr/lib/z.sh ] && . /usr/lib/z.sh

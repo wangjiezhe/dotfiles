@@ -67,7 +67,7 @@ clipit &
 # blueman-applet &
 
 # transmission
-transmission-gtk -m &
+# transmission-gtk -m &
 
 # shutter
 shutter --min_at_startup &
@@ -93,7 +93,7 @@ start-pulseaudio-x11
 pasystray &
 
 # start goagent
-# systemctl start goagent
+systemctl start goagent
 # systemctl start goproxy
 
 # start create_ap if connected with ethernet
