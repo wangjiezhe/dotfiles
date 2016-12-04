@@ -44,7 +44,8 @@ wmname LG3D
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 export XMODIFIERS="@im=fcitx"
-fcitx -d
+systemctl start --user fcitx
+# fcitx -d
 # fcitx-qimpanel &
 
 hsetroot -solid '#000000' &
@@ -52,7 +53,7 @@ compton -b
 
 # xscreensaver -nosplash &
 
-syndaemon -t -k -i 2 -d
+# syndaemon -t -k -i 2 -d
 # -R
 
 # unlock keyring
@@ -85,7 +86,7 @@ start-conky &
 mkdir -p /tmp/vim_undodir
 
 # start terminal at autostart
-urxvtd -q -f -o
+# urxvtd -q -f -o
 urxvtc
 
 # start pulseaudio and system tray for it
@@ -93,13 +94,13 @@ start-pulseaudio-x11
 pasystray &
 
 # start goagent
-systemctl start goagent
+# systemctl start goagent
 # systemctl start goproxy
 
 # start create_ap if connected with ethernet
-if [[ -n $(grep enp5s0 /proc/net/route) ]] && ! $(systemctl is-active create_ap); then
-    systemctl start create_ap
-fi
+# if [[ -n $(grep enp5s0 /proc/net/route) ]] && ! $(systemctl is-active create_ap); then
+#     systemctl start create_ap
+# fi
 
 # emacs
 # emacs --daemon

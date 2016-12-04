@@ -1,80 +1,63 @@
 !! ~/.Xdefaults or ~/.Xresources
-URxvt*depth: 32
-URxvt*geometry: 132x43
+URxvt.depth: 32
+URxvt.geometry: 132x43
 
 !! Color
-URxvt*background: Black
-URxvt*foreground: White
+URxvt.background: Black
+URxvt.foreground: White
 
 ! jumpScroll: False
 ! SkipScroll: False
 
 !! Font
-URxvt*font: xft:WenQuanYi\ Micro\ Hei\ Mono:size=13:antialias=true,xft:DejaVu\ Sans\ Mono:size=13,xft:Terminus:size=13,xft:Inconsolata\ for\ Powerline:size=13,xft:PowerlineSymbols:size=13
+URxvt.font: xft:WenQuanYi\ Micro\ Hei\ Mono:size=13:antialias=true,xft:DejaVu\ Sans\ Mono:size=13,xft:Terminus:size=13,xft:Inconsolata\ for\ Powerline:size=13,xft:PowerlineSymbols:size=13
 
 !! Bell
-URxvt*mapAlert: True
-URxvt*urgentOnBell: True
-URxvt*visualBell: True
+URxvt.mapAlert: True
+URxvt.urgentOnBell: True
+URxvt.visualBell: True
 
 !! Scrollbar
 !! Scrolltype: plain/rxvt/next/xterm
-URxvt*scrolltype: rxvt
-URxvt*scrollBar: True
-URxvt*scrollBar_right: True
-URxvt*scrollBar_floating: True
-URxvt*scrollBar_align: centre
-URxvt*scrollTtyOutput: False
-URxvt*scrollTtyKeypress: True
-URxvt*scrollWithBuffer: True
-URxvt*secondaryScreen: 1
-URxvt*secondaryScroll: 1
+URxvt.scrolltype: rxvt
+URxvt.scrollBar: True
+URxvt.scrollBar_right: True
+URxvt.scrollBar_floating: True
+URxvt.scrollBar_align: centre
+URxvt.scrollTtyOutput: False
+URxvt.scrollTtyKeypress: True
+URxvt.scrollWithBuffer: True
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
 
-URxvt*bolderLess: False
-URxvt*saveLines: 65535
+URxvt.bolderLess: False
+URxvt.saveLines: 65535
 
 !! Cursor
-URxvt*cursorBlink: True
-URxvt*cursorUnderline: False
+URxvt.cursorBlink: True
+URxvt.cursorUnderline: False
 
 !! PreeditType: OverTheSpot/OffTheSpot/Root
-URxvt*preeditType: Root
-! URxvt*inputMethod: ibus
-! URxvt*tripleclickwords: False
-! URxvt*hold: True
+URxvt.preeditType: Root
+! URxvt.inputMethod: ibus
+! URxvt.tripleclickwords: False
+! URxvt.hold: True
 
 !! Perl Extension
-! URxvt*perl-lib: /usr/lib/urxvt/perl/
-URxvt*perl-ext-common: default,matcher,keyboard-select,url-select,clipboard,tabbedex,vtwheel
-URxvt*url-launcher: chromium
-URxvt*matcher.button: 1
-URxvt*keysym.M-s: perl:keyboard-select:search
-URxvt*keysym.M-u: perl:url-select:select_next
-URxvt*keysym.M-Escape: perl:keyboard-select:activate
-URxvt*keysym.m-c: perl:clipboard:copy
-URxvt*keysym.m-v: perl:clipboard:paste
-! URxvt*keysym.Shift-Ctrl-C: perl:clipboard:copy
-! URxvt*keysym.Shift-Ctrl-V: perl:clipboard:paste
-! URxvt*keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt*url-select.launcher: chromium
-URxvt*url-select.underline: true
-URxvt*tabbed.tabbar-fg: 2
-URxvt*tabbed.tabbar-bg: 0
-URxvt*tabbed.tab-fg: 3
-URxvt*tabbed.tab-bg: 0
-! Urxvt*tabbed.new-button: true
-URxvt*tabbed.autohide: true
-URxvt*tabbed.reopen-on-close: yes
-! URxvt*keysym.Control-t: perl:tabbedex:new_tab
-URxvt*keysym.Control-Tab: perl:tabbedex:next_tab
-! URxvt*keysym.Control-Shift-Tab: perl:tabbedex:prev_tab
-! URxvt*keysym.Control-Shift-Left: perl:tabbedex:move_tab_left
-! URxvt*keysym.Control-Shift-Right: perl:tabbedex:move_tab_right
-! URxvt*keysym.Control-Shift-R: perl:tabbedex:rename_tab
+! URxvt.perl-lib: /usr/lib/urxvt/perl/
+URxvt.perl-ext-common: default,matcher,keyboard-select,tabbedex,vtwheel,url-select
+URxvt.url-launcher: xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: 0
+URxvt.tabbed.autohide: true
+URxvt.tabbed.reopen-on-close: yes
+URxvt.keysym.Control-Tab: perl:tabbedex:next_tab
 ! 禁用到 Ctrl + Shift 的输入特殊字符功能
-URxvt*iso14755 : false
-URxvt*iso14755_52 : false
-
-URxvt*clipboard.copycmd:  xclip -i -selection clipboard
-URxvt*clipboard.pastecmd: xclip -o -selection clipboard
-
+URxvt.iso14755 : false
+URxvt.iso14755_52 : false

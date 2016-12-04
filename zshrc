@@ -157,6 +157,16 @@ alias -g NUL=">/dev/null 2>&1"
 alias -g PP="2>&1| pygmentize -l pytb"
 
 # User's function
+
+exists() {
+	which $1 &> /dev/null
+}
+source_if_exists() {
+	if [ -s $1 ]; then
+		source $1
+	fi
+}
+
 # make a directory and open it
 mkcd() {
         dir="$*";
@@ -349,8 +359,8 @@ compctl -K _pip_completion pip pip3
 # pip zsh completion end
 
 # OPAM configuration
-. /home/wangjiezhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-eval $(opam config env)
+#. /home/wangjiezhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+#eval $(opam config env)
 
 # rehash automatically
 setopt nohashdirs
@@ -369,15 +379,11 @@ function sword()
 }
 
 # Pinyin completion
-if [ -s /usr/share/pinyin-completion/shell/pinyin-comp.zsh ]; then
-        source /usr/share/pinyin-completion/shell/pinyin-comp.zsh
-fi
+source_if_exists /usr/share/pinyin-completion/shell/pinyin-comp.zsh
 
 # Command not found
 # Already enabled by oh-my-zsh plugin command-not-found
-if [ -s /usr/share/doc/pkgfile/command-not-found.zsh ]; then
-        source /usr/share/doc/pkgfile/command-not-found.zsh
-fi
+source_if_exists /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Coloerd less
 #export LESS='-R'
@@ -409,7 +415,7 @@ explain () {
 }
 
 # added by travis gem
-[ -f /home/wangjiezhe/.travis/travis.sh ] && source /home/wangjiezhe/.travis/travis.sh
+source_if_exists /home/wangjiezhe/.travis/travis.sh
 
 # python 命令行模式 自动补全
 # export PYTHONSTARTUP=~/.pythonstartup.py
@@ -417,19 +423,15 @@ explain () {
 export HISTCONTROL=ignorespace:erasedups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
 
-# TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-eval $(thefuck --alias)
-
 # z
-[ -s /usr/lib/z.sh ] && . /usr/lib/z.sh
+source_if_exists /usr/lib/z.sh
 export _Z_OWNER=wangjiezhe
 
 # percol
-source /usr/share/zsh/plugins/percol/percol.plugin.zsh
+source_if_exists /usr/share/zsh/plugins/percol/percol.plugin.zsh
 # zsh history search with percol
-function exists { which $1 &> /dev/null }
 if exists percol; then
-    function percol_select_history() {
+    percol_select_history() {
         local tac
         exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
         BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
@@ -441,5 +443,14 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
+# thefuck
+if exists thefuck; then
+	# TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+	eval $(thefuck --alias)
+fi
+
 # zsh-syntax-highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# racket
+source_if_exists /usr/share/racket/pkgs/shell-completion/racket-completion.zsh

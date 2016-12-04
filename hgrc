@@ -1,5 +1,6 @@
-#[http_proxy]
+[http_proxy]
 #host=pkuproxy.phiy.me:1898
 
 [extensions]
-purge =
+purge=
+hgk=
