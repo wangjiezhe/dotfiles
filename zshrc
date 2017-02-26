@@ -134,6 +134,7 @@ alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias sc="systemctl"
 alias jj='jump'
 alias ssh-gbk='luit -encoding gbk ssh'
+alias yacl='yaourt -Sc'
 # Global alias
 alias -g quiet="-q 2>/dev/null"        # Used for yum
 alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
@@ -159,12 +160,12 @@ alias -g PP="2>&1| pygmentize -l pytb"
 # User's function
 
 exists() {
-	which $1 &> /dev/null
+        which $1 &> /dev/null
 }
 source_if_exists() {
-	if [ -s $1 ]; then
-		source $1
-	fi
+        if [ -s $1 ]; then
+                source $1
+        fi
 }
 
 # make a directory and open it
@@ -271,7 +272,7 @@ PATH=$HOME/.cask/bin:$PATH
 PATH=$PATH:$HOME/.linuxbrew/bin
 #PATH=$PATH:/usr/local/MATLAB/R2014b/bin
 #PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
-PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
+PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
 PATH=$PATH:.
@@ -339,8 +340,8 @@ export AUTOJUMP_IGNORE_CASE=1
 # enabled by oh-my-zsh plugin npm
 # source ~/.npm-completion.sh
 
-PERL_MB_OPT="--install_base \"/home/wangjiezhe/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/wangjiezhe/perl5"; export PERL_MM_OPT;
+#PERL_MB_OPT="--install_base \"/home/wangjiezhe/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/home/wangjiezhe/perl5"; export PERL_MM_OPT;
 
 # source "/usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh"
 
@@ -445,8 +446,8 @@ fi
 
 # thefuck
 if exists thefuck; then
-	# TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-	eval $(thefuck --alias)
+        # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+        eval $(thefuck --alias)
 fi
 
 # zsh-syntax-highlighting
@@ -454,3 +455,14 @@ source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highl
 
 # racket
 source_if_exists /usr/share/racket/pkgs/shell-completion/racket-completion.zsh
+
+# opencc
+t2s() {
+        opencc -i "$1" -o "$1" -c t2s
+}
+s2t() {
+        opencc -i "$1" -o "$1" -c s2t
+}
+rename-t2s() {
+        mv "$1" $(echo "$1" | opencc -c t2s --)
+}

@@ -17,7 +17,7 @@ CONF_GROUP_0 = (
     '.gitconfig', '.hgrc',
     '.mpdconf',
     '.pylintrc',
-    '.racketrc',
+    '.racketrc', '.reducerc',
     '.vimperatorrc.local',
     '.xinitrc', '.xprofile', '.Xresources',
     '.zlogin', '.zprofile', '.zshrc',

@@ -10,7 +10,7 @@ URxvt.foreground: White
 ! SkipScroll: False
 
 !! Font
-URxvt.font: xft:WenQuanYi\ Micro\ Hei\ Mono:size=13:antialias=true,xft:DejaVu\ Sans\ Mono:size=13,xft:Terminus:size=13,xft:Inconsolata\ for\ Powerline:size=13,xft:PowerlineSymbols:size=13
+URxvt.font: xft: WenQuanYi\ Micro\ Hei\ Mono:size=13:antialias=true,xft:DejaVu\ Sans\ Mono:size=13,xft:Terminus:size=13,xft:Inconsolata\ for\ Powerline:size=13,xft:PowerlineSymbols:size=13
 
 !! Bell
 URxvt.mapAlert: True
@@ -44,13 +44,13 @@ URxvt.preeditType: Root
 ! URxvt.hold: True
 
 !! Perl Extension
-! URxvt.perl-lib: /usr/lib/urxvt/perl/
 URxvt.perl-ext-common: default,matcher,keyboard-select,tabbedex,vtwheel,url-select
 URxvt.url-launcher: xdg-open
 URxvt.matcher.button: 1
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: xdg-open
 URxvt.tabbed.tabbar-fg: 2
 URxvt.tabbed.tabbar-bg: 0
 URxvt.tabbed.tab-fg: 3

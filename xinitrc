@@ -108,5 +108,8 @@ pasystray &
 # aria2
 aria2c -D
 
+# cache dmenu
+#dmenu_path > /dev/null
+
 exec awesome
 # exec /usr/bin/dbus-launch --auto-syntax --exit-with-session awesome
