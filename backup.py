@@ -34,7 +34,7 @@ CONF_GROUP_1 = (
 
 CONF_GROUP_2 = (
     '.config/mpv/mpv.conf',
-    '.config/btsync/btsync.conf'
+    '.config/rslsync/rslsync.conf'
 )
 
 

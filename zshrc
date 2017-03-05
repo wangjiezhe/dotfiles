@@ -116,7 +116,7 @@ alias duf='du -sh *'
 alias fd='find . -type d -name'
 alias ff='find . -type f -name'
 alias pingtest="ping -c5 162.105.130.1"
-PIP_UPGRADE="/home/wangjiezhe/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
+PIP_UPGRADE="$HOME/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
 alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
 alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
@@ -160,55 +160,55 @@ alias -g PP="2>&1| pygmentize -l pytb"
 # User's function
 
 exists() {
-        which $1 &> /dev/null
+    which $1 &> /dev/null
 }
 source_if_exists() {
-        if [ -s $1 ]; then
-                source $1
-        fi
+    if [ -s $1 ]; then
+        source $1
+    fi
 }
 
 # make a directory and open it
 mkcd() {
-        dir="$*";
-        mkdir -p "$dir" && cd "$dir";
+    dir="$*";
+    mkdir -p "$dir" && cd "$dir";
 }
 # Safer curl | sh'ing
 curlsh() {
-        file=$(mktemp -t curlsh.XXXXXX) || { echo "Failed creating file"; return; }
-        curl -s "$1" > $file || { echo "Failed to curl file"; return; }
-        $EDITOR $file || { echo "Editor quit with error code"; return; }
-        sh $file;
-        rm $file;
+    file=$(mktemp -t curlsh.XXXXXX) || { echo "Failed creating file"; return; }
+    curl -s "$1" > $file || { echo "Failed to curl file"; return; }
+    $EDITOR $file || { echo "Editor quit with error code"; return; }
+    sh $file;
+    rm $file;
 }
 # Open the next directory
 cdnext() {
-        oldIFS=IFS
-        IFS=,
-        count=1
-        for file in $(ls -F ..|grep /|tr '\n' ,)
-        do
-                alldirs[count]="$file"
-                let count++
-        done
-        IFS=$oldIFS
+    oldIFS=IFS
+    IFS=,
+    count=1
+    for file in $(ls -F ..|grep /|tr '\n' ,)
+    do
+        alldirs[count]="$file"
+        let count++
+    done
+    IFS=$oldIFS
 
-        currentdir=$(pwd|sed "s,^.*/\([^/]*\)$,\1/,")
-        for (( num=1; num<count; num++ ))
-        do
-                [ $alldirs[$num] = $currentdir ] && break
-        done
-        let num++
-        let count--
-        if [ $num -lt $count ]
-        then
-                nextdir="../$alldirs[$num]"
-        else
-                echo "All directories have been circulated. Restart from the first."
-                nextdir="../$alldirs[1]"
-        fi
+    currentdir=$(pwd|sed "s,^.*/\([^/]*\)$,\1/,")
+    for (( num=1; num<count; num++ ))
+    do
+        [ $alldirs[$num] = $currentdir ] && break
+    done
+    let num++
+    let count--
+    if [ $num -lt $count ]
+    then
+        nextdir="../$alldirs[$num]"
+    else
+        echo "All directories have been circulated. Restart from the first."
+        nextdir="../$alldirs[1]"
+    fi
 
-        cd "$nextdir"
+    cd "$nextdir"
 }
 # Correctly display Chinese in command `tree`
 # tree() {
@@ -216,49 +216,49 @@ cdnext() {
 # }
 
 duh() {
-        du -d1 -h -a $* | sort -h
+    du -d1 -h -a $* | sort -h
 }
 
 # Find the rpm that provides the command
 rpmfind() {
-        if [[ $# -eq 1 ]]
-        then
-                rpm -qf $(which $1)
-        else
-                echo "Usage: rpmfind command"
-        fi
+    if [[ $# -eq 1 ]]
+    then
+        rpm -qf $(which $1)
+    else
+        echo "Usage: rpmfind command"
+    fi
 }
 
 # ps grep
 psg () {
-        ps -eaf | grep -i "$@" | grep -v -e "grep .* -i"
+    ps -eaf | grep -i "$@" | grep -v -e "grep .* -i"
 }
 
 psgw () {
-        ps auxww | grep -i "$@" | grep -v -e "grep .* -i"
+    ps auxww | grep -i "$@" | grep -v -e "grep .* -i"
 }
 
 export YUMDIR=/etc/yum.repos.d
 
 # git subtree push
 gsp () {
-        git subtree push -P $1 $1 master
+    git subtree push -P $1 $1 master
 }
 
 # git subtree push all
 gspa () {
-        for r in $(git remote)
-        do
-                if [[ $r != "origin" ]] && [[ $r != "upstream" ]]
-                then
-                        git subtree push -P $r $r master
-                fi
-        done
+    for r in $(git remote)
+    do
+        if [[ $r != "origin" ]] && [[ $r != "upstream" ]]
+        then
+            git subtree push -P $r $r master
+        fi
+    done
 }
 
 # git subtree pull
 gsl () {
-        git subtree pull -P $1 $1 master
+    git subtree pull -P $1 $1 master
 }
 
 # Path
@@ -275,10 +275,11 @@ PATH=$PATH:$HOME/.linuxbrew/bin
 PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
+#PATH=$PATH:$HOME/.opam/system/bin
 PATH=$PATH:.
 export PATH
 # Path for pkg-config
-#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
 
 export MANPATH=$MANPATH:$HOME/.linuxbrew/share/man
 export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
@@ -296,14 +297,13 @@ export EDITOR="vim"
 #export ALTERNATE_EDITOR="emacs" EDITOR="emacsclient" VISUAL="emacsclient"
 # export ALTERNATE_EDITOR="" EDITOR="emacsclient -t -a emacs"
 export CHEATCOLOR=true
-# source /home/wangjiezhe/Downloads/github/cheat/cheat/autocompletion/cheat.zsh
 fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
 
 # Enable autojump
 # Already enabled by oh-my-zsh plugin autojump
 # source /etc/profile.d/autojump.zsh
-# [[ -s /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh ]] \
-#       && source /home/wangjiezhe/.autojump/etc/profile.d/autojump.sh
+# [[ -s $HOMME/.autojump/etc/profile.d/autojump.sh ]] \
+#       && source $HOME/.autojump/etc/profile.d/autojump.sh
 # Enable zsh tab completion
 autoload -U compinit && compinit -u
 # Always ignore case
@@ -340,8 +340,8 @@ export AUTOJUMP_IGNORE_CASE=1
 # enabled by oh-my-zsh plugin npm
 # source ~/.npm-completion.sh
 
-#PERL_MB_OPT="--install_base \"/home/wangjiezhe/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/wangjiezhe/perl5"; export PERL_MM_OPT;
+#PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # source "/usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh"
 
@@ -360,7 +360,7 @@ compctl -K _pip_completion pip pip3
 # pip zsh completion end
 
 # OPAM configuration
-#. /home/wangjiezhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+source_if_exists $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 #eval $(opam config env)
 
 # rehash automatically
@@ -416,7 +416,7 @@ explain () {
 }
 
 # added by travis gem
-source_if_exists /home/wangjiezhe/.travis/travis.sh
+source_if_exists $HOME/.travis/travis.sh
 
 # python 命令行模式 自动补全
 # export PYTHONSTARTUP=~/.pythonstartup.py
@@ -446,23 +446,27 @@ fi
 
 # thefuck
 if exists thefuck; then
-        # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-        eval $(thefuck --alias)
+    # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+    eval $(thefuck --alias)
+    #alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD ; test -n "$TF_CMD" && print -s $TF_CMD'
 fi
 
 # zsh-syntax-highlighting
 source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-suggestions
+source_if_exists /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # racket
 source_if_exists /usr/share/racket/pkgs/shell-completion/racket-completion.zsh
 
 # opencc
 t2s() {
-        opencc -i "$1" -o "$1" -c t2s
+    opencc -i "$1" -o "$1" -c t2s
 }
 s2t() {
-        opencc -i "$1" -o "$1" -c s2t
+    opencc -i "$1" -o "$1" -c s2t
 }
 rename-t2s() {
-        mv "$1" $(echo "$1" | opencc -c t2s --)
+    mv "$1" $(echo "$1" | opencc -c t2s --)
 }
