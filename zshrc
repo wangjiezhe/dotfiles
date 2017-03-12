@@ -275,7 +275,6 @@ PATH=$PATH:$HOME/.linuxbrew/bin
 PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
-#PATH=$PATH:$HOME/.opam/system/bin
 PATH=$PATH:.
 export PATH
 # Path for pkg-config
@@ -284,6 +283,7 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:
 export MANPATH=$MANPATH:$HOME/.linuxbrew/share/man
 export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
 export GOPATH=$HOME/go
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib
 
 # fpath=(/usr/share/zsh/$(zsh --version|awk '{print $2}')/functions ${fpath})
 
@@ -361,7 +361,7 @@ compctl -K _pip_completion pip pip3
 
 # OPAM configuration
 source_if_exists $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-#eval $(opam config env)
+eval $(opam config env)
 
 # rehash automatically
 setopt nohashdirs
@@ -470,3 +470,5 @@ s2t() {
 rename-t2s() {
     mv "$1" $(echo "$1" | opencc -c t2s --)
 }
+
+#source /usr/share/nvm/init-nvm.sh

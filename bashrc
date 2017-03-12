@@ -87,3 +87,5 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # added by travis gem
 [ -f /home/wangjiezhe/.travis/travis.sh ] && source /home/wangjiezhe/.travis/travis.sh
+
+#source /usr/share/nvm/init-nvm.sh
