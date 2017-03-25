@@ -28,13 +28,13 @@ CONF_GROUP_1 = (
     '.cargo/config',
     '.gnupg/gpg.conf',
     '.gnupg/gpg-agent.conf',
-    '.pip/pip.conf',
     '.ipython/extensions/version_information.py',
 )
 
 CONF_GROUP_2 = (
+    '.config/pip/pip.conf',
     '.config/mpv/mpv.conf',
-    '.config/rslsync/rslsync.conf'
+    '.config/rslsync/rslsync.conf',
 )
 
 

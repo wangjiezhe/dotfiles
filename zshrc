@@ -61,16 +61,20 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large reppermissiveositories much,
 # much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # For plugin copydir and copyfile
 alias pbcopy="xclip -sel clip"
+
+# For plugin history
+export HIST_STAMPS="yyyy-mm-dd"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(gitfast git-extras fedora cp history web-search rsync github
-        # emoji emoji-clock emotty
-        docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize command-not-found
+        # emoji emoji-clock emotty command-not-found
+        docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize
         dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z gem adb
         gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
         copydir copyfile
@@ -80,6 +84,10 @@ export plugins
 source "$ZSH"/oh-my-zsh.sh
 
 # Customize to your needs...
+
+# For plugin history
+export HISTSIZE=100000000
+export SAVEHIST=100000000
 
 # Alias
 # alias sudo="sudo -E"
@@ -380,11 +388,7 @@ function sword()
 }
 
 # Pinyin completion
-source_if_exists /usr/share/pinyin-completion/shell/pinyin-comp.zsh
-
-# Command not found
-# Already enabled by oh-my-zsh plugin command-not-found
-source_if_exists /usr/share/doc/pkgfile/command-not-found.zsh
+#source_if_exists /usr/share/pinyin-completion/shell/pinyin-comp.zsh
 
 # Coloerd less
 #export LESS='-R'
@@ -445,11 +449,11 @@ if exists percol; then
 fi
 
 # thefuck
-if exists thefuck; then
-    # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-    eval $(thefuck --alias)
-    #alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD ; test -n "$TF_CMD" && print -s $TF_CMD'
-fi
+#if exists thefuck; then
+#    # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+#    eval $(thefuck --alias)
+#    #alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD ; test -n "$TF_CMD" && print -s $TF_CMD'
+#fi
 
 # zsh-syntax-highlighting
 source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
