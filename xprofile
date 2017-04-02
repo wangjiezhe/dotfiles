@@ -2,11 +2,6 @@
 
 export LC_COLLATE=zh_CN.UTF8
 
-#setxkbmap -option ctrl:swapcaps
-#setxkbmap -option terminate:ctrl_alt_bksp
-#setxkbmap -option altwin:meta_alt
-#setxkbmap -option altwin:meta_win
-
 # set wmname
 wmname LG3D
 
@@ -22,7 +17,7 @@ compton -b
 # xscreensaver -nosplash &
 
 # unlock keyring
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export SSH_AUTH_SOCK
 
 # start clipboard

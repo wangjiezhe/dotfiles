@@ -145,10 +145,10 @@ alias ssh-gbk='luit -encoding gbk ssh'
 alias yacl='yaourt -Sc'
 # Global alias
 alias -g quiet="-q 2>/dev/null"        # Used for yum
-alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
+alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/" -e "https_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
 alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
 alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/"'        # Used for wget
+alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/" -e "https_proxy=http://127.0.0.1:8087/"'        # Used for wget
 alias -g gpp2="--http-proxy http://127.0.0.1:8087/"        # Used for gem
 alias -g cpp2="-k --proxy http://127.0.0.1:8087/"    # User for curl
 # Command line head / tail shortcuts

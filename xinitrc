@@ -32,6 +32,8 @@ fi
 #xrandr --setprovideroutputsource modesetting NVIDIA-0
 #xrandr --auto
 #xrandr --dpi 96
+#export VDPAU_DRIVER=nvidia
+#export LIBVA_DRIVER_NAME=nvidia
 
 if [ -f "$sysprofile" ]; then
 	source "$sysprofile"
