@@ -56,7 +56,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_CORRECTION="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large reppermissiveositories much,
@@ -75,7 +75,7 @@ export HIST_STAMPS="yyyy-mm-dd"
 plugins=(gitfast git-extras fedora cp history web-search rsync github
         # emoji emoji-clock emotty command-not-found
         docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize
-        dircycle dirhistory dirpersist django encode64 extract fab, fancy-ctrl-z gem adb
+        dircycle dirhistory dirpersist django encode64 extract fab fancy-ctrl-z gem adb
         gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
         copydir copyfile
         zshmarks)
@@ -114,6 +114,7 @@ alias cman="man -L zh_CN.utf8"        # Man in Chinese
 alias ack-grep="ack"
 alias mv="amv -g"
 alias cp="acp -g"
+#alias rm="gvfs-trash"
 alias yiy="sudo yum install -y"
 alias yuy="sudo yum upgrade -y"
 alias betty="$HOME/Downloads/github/betty/main.rb"
@@ -130,7 +131,6 @@ alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
 alias dmesg="dmesg --color=always --reltime"
 # alias mpv="mpv --hwdec=vaapi --vo=vaapi"
-# alias move-mp3="mv ~/Downloads/*.mp3 ~/Documents/语音与听说词汇/网测录音"
 # alias pip-upgrade="yolk -U|cut -d ' ' -f 1|xargs pip install --upgrade"
 alias sl=ls
 alias sudp=sudo
@@ -145,12 +145,12 @@ alias ssh-gbk='luit -encoding gbk ssh'
 alias yacl='yaourt -Sc'
 # Global alias
 alias -g quiet="-q 2>/dev/null"        # Used for yum
-alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/" -e "https_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
-alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
-alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://127.0.0.1:8087/" -e "https_proxy=http://127.0.0.1:8087/"'        # Used for wget
-alias -g gpp2="--http-proxy http://127.0.0.1:8087/"        # Used for gem
-alias -g cpp2="-k --proxy http://127.0.0.1:8087/"    # User for curl
+#alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/" -e "https_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
+#alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
+#alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
+alias -g wpp2='-e "http_proxy=http://127.0.0.1:8088/" -e "https_proxy=http://127.0.0.1:8088/"'        # Used for wget
+alias -g gpp2="--http-proxy http://127.0.0.1:8088/"        # Used for gem
+alias -g cpp2="-k --proxy http://127.0.0.1:8088/"    # User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
@@ -280,7 +280,7 @@ PATH=$HOME/.cask/bin:$PATH
 PATH=$PATH:$HOME/.linuxbrew/bin
 #PATH=$PATH:/usr/local/MATLAB/R2014b/bin
 #PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
-PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
+PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
 PATH=$PATH:.
@@ -450,16 +450,14 @@ fi
 
 # thefuck
 #if exists thefuck; then
-#    # TF_ALIAS=fuck alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 #    eval $(thefuck --alias)
-#    #alias fuck='TF_CMD=$(TF_ALIAS=fuck PYTHONIOENCODING=utf-8 TF_SHELL_ALIASES=$(alias) thefuck $(fc -ln -1 | tail -n 1)) && eval $TF_CMD ; test -n "$TF_CMD" && print -s $TF_CMD'
 #fi
 
 # zsh-syntax-highlighting
 source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-suggestions
-source_if_exists /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source_if_exists /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # racket
 source_if_exists /usr/share/racket/pkgs/shell-completion/racket-completion.zsh
@@ -474,5 +472,19 @@ s2t() {
 rename-t2s() {
     mv "$1" $(echo "$1" | opencc -c t2s --)
 }
+echo-t2s() {
+	echo "$1" | opencc -c t2s --
+}
 
 #source /usr/share/nvm/init-nvm.sh
+
+# bundle
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
+# google-cloud-sdk
+source_if_exists /opt/google-cloud-sdk/completion.zsh.inc
+
+# vte
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+    source /etc/profile.d/vte.sh
+fi

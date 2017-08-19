@@ -11,6 +11,7 @@ BACKUP_DIR = os.path.dirname(os.path.realpath(__file__))
 HOME_DIR = os.getenv('HOME')
 
 CONF_GROUP_0 = (
+    '.ocamlinit',
     '.bashrc', '.bash_profile',
     '.fbtermrc', '.tmux.conf',
     '.gemrc', '.npmrc',

@@ -8,8 +8,10 @@ wmname LG3D
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 export XMODIFIERS="@im=fcitx"
-systemctl start --user fcitx
+#systemctl start --user fcitx
 # fcitx-qimpanel &
+fcitx -d
+sogou-qimpanel
 
 hsetroot -solid '#000000' &
 compton -b
@@ -45,6 +47,9 @@ start-conky &
 # vim
 mkdir -p /tmp/vim_undodir
 
+# emacs
+mkdir -p /tmp/emacs
+
 # start terminal at autostart
 urxvtc
 
@@ -56,4 +61,4 @@ pasystray &
 aria2c -D
 
 # cache dmenu
-#dmenu_path > /dev/null
+# dmenu_path > /dev/null

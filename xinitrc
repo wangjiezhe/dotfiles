@@ -43,5 +43,8 @@ if [ -f "$userprofile" ]; then
 	source "$userprofile"
 fi
 
+# VirtualGL
+vglgenkey
+
 exec awesome
 # exec /usr/bin/dbus-launch --auto-syntax --exit-with-session awesome
