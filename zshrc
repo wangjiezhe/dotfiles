@@ -33,6 +33,9 @@ export ZSH_THEME="einbisschenmath"
 # Unkown
 # export ZSH_THEME="emotty"
 
+# 为方便复制，右边的提示符只在最新的提示符上显示
+setopt transient_rprompt
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -140,6 +143,7 @@ alias e="emacsclient -t"
 alias ee="emacs -nw"
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 alias sc="systemctl"
+alias scu="systemctl --user"
 alias jj='jump'
 alias ssh-gbk='luit -encoding gbk ssh'
 alias yacl='yaourt -Sc'
@@ -293,6 +297,8 @@ export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
 export GOPATH=$HOME/go
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib
 
+export SBCL_HOME=/usr/lib/sbcl
+
 # fpath=(/usr/share/zsh/$(zsh --version|awk '{print $2}')/functions ${fpath})
 
 # Use fcitx rather than ibus
@@ -425,6 +431,14 @@ source_if_exists $HOME/.travis/travis.sh
 # python 命令行模式 自动补全
 # export PYTHONSTARTUP=~/.pythonstartup.py
 
+# setopt 的输出显示选项的开关状态
+setopt ksh_option_print
+
+# 不保存重复的历史记录项
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+
 export HISTCONTROL=ignorespace:erasedups
 export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
 
@@ -488,3 +502,50 @@ source_if_exists /opt/google-cloud-sdk/completion.zsh.inc
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
     source /etc/profile.d/vte.sh
 fi
+
+# 剪贴板数据到QR码
+clipboard2qr () {
+  data="$(xsel)"
+  echo $data
+  echo $data | qrencode -t UTF8
+}
+
+# 文件名从 GB 转码，带确认
+mvgb () {
+  for i in $*; do
+    new="`echo $i|iconv -f utf8 -t latin1|iconv -f gbk`"
+    echo $new
+    echo -n 'Sure? '
+    read -q ans && mv -i $i $new
+    echo
+  done
+}
+
+pid () {
+  s=0
+  for i in $*; do
+    echo -n "$i: "
+    r=$(cat /proc/$i/cmdline|tr '\0' ' ' 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+      echo not found
+      s=1
+    else
+      echo $r
+    fi
+  done
+  return $s
+}
+
+# 快速查找当前目录下的文件
+# rg is 3x faster than ag, and find 2x
+if (( $+commands[rg] )) then
+  s () {
+    rg --files -g "*$1*"
+  }
+else
+  s () {
+    find . -name "*$1*"
+  }
+fi
+
+setopt no_share_history

@@ -51,7 +51,7 @@ mkdir -p /tmp/vim_undodir
 mkdir -p /tmp/emacs
 
 # start terminal at autostart
-urxvtc
+#urxvtc
 
 # start pulseaudio and system tray for it
 start-pulseaudio-x11
@@ -61,4 +61,4 @@ pasystray &
 aria2c -D
 
 # cache dmenu
-# dmenu_path > /dev/null
+dmenu_path > /dev/null

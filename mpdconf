@@ -323,6 +323,15 @@ audio_output {
 #	format		"44100:16:2"
 #}
 #
+## Enable FFT for visualization
+#
+audio_output {
+	type	"fifo"
+	name	"Visualizer feed"
+	path	"/tmp/mpd.fifo"
+	format	"44100:16:2"
+}
+#
 ## An example of a null output (for no audio output):
 #
 #audio_output {

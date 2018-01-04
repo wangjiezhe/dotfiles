@@ -46,6 +46,6 @@
 	show = diff-highlight | less
 	diff = diff-highlight | less
 [commit]
-	# gpgsign = true
+	gpgsign = true
 [magit]
 	extension = wip-save
