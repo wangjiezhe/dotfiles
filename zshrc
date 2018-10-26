@@ -99,7 +99,7 @@ alias gfu="git fetch upstream"
 alias gmuo="git merge upstream/master origin/master"
 alias gmms="git merge master src"
 alias glga="git log --stat --decorate --graph --all --show-signature"
-# unalias gap
+unalias gap
 unalias gp
 unalias gsi
 unalias gm
@@ -115,18 +115,18 @@ alias hgrep="fc -El 0 | grep"
 alias help='man'
 alias cman="man -L zh_CN.utf8"        # Man in Chinese
 alias ack-grep="ack"
-alias mv="amv -g"
-alias cp="acp -g"
-#alias rm="gvfs-trash"
+# alias mv="amv -g"
+# alias cp="acp -g"
+# alias rm="gvfs-trash"
 alias yiy="sudo yum install -y"
 alias yuy="sudo yum upgrade -y"
 alias betty="$HOME/Downloads/github/betty/main.rb"
 alias bpython3="python3-bpython"
-alias dfh="df -h"
+alias dfh="df -Th"
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
-alias fd='find . -type d -name'
-alias ff='find . -type f -name'
+# alias fd='find . -type d -name'
+# alias ff='find . -type f -name'
 alias pingtest="ping -c5 162.105.130.1"
 PIP_UPGRADE="$HOME/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
 alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
@@ -147,14 +147,15 @@ alias scu="systemctl --user"
 alias jj='jump'
 alias ssh-gbk='luit -encoding gbk ssh'
 alias yacl='yaourt -Sc'
+alias preview="fzf --preview 'bat --color always {}'"
 # Global alias
 alias -g quiet="-q 2>/dev/null"        # Used for yum
 #alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/" -e "https_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
 #alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
 #alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
-alias -g wpp2='-e "http_proxy=http://127.0.0.1:8088/" -e "https_proxy=http://127.0.0.1:8088/"'        # Used for wget
-alias -g gpp2="--http-proxy http://127.0.0.1:8088/"        # Used for gem
-alias -g cpp2="-k --proxy http://127.0.0.1:8088/"    # User for curl
+alias -g wpp='-e "http_proxy=http://127.0.0.1:8088/" -e "https_proxy=http://127.0.0.1:8088/"'        # Used for wget
+alias -g gpp="--http-proxy http://127.0.0.1:8088/"        # Used for gem
+alias -g cpp="-k --proxy http://127.0.0.1:8088/"    # User for curl
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
@@ -287,6 +288,7 @@ PATH=$PATH:$HOME/.linuxbrew/bin
 PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin
 #PATH=$PATH:/usr/lib/ccache/bin
 PATH=$PATH:$HOME/go/bin
+PATH=$PATH:$(yarn global bin)
 PATH=$PATH:.
 export PATH
 # Path for pkg-config
@@ -372,10 +374,6 @@ function _pip_completion {
 }
 compctl -K _pip_completion pip pip3
 # pip zsh completion end
-
-# OPAM configuration
-source_if_exists $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-eval $(opam config env)
 
 # rehash automatically
 setopt nohashdirs
@@ -487,7 +485,7 @@ rename-t2s() {
     mv "$1" $(echo "$1" | opencc -c t2s --)
 }
 echo-t2s() {
-	echo "$1" | opencc -c t2s --
+        echo "$1" | opencc -c t2s --
 }
 
 #source /usr/share/nvm/init-nvm.sh
@@ -549,3 +547,9 @@ else
 fi
 
 setopt no_share_history
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
+# opam configuration
+test -r /home/wangjiezhe/.opam/opam-init/init.zsh && . /home/wangjiezhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

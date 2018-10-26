@@ -13,11 +13,20 @@
 	default = simple
 [http]
 #	proxy = http://127.0.0.1:8087/
-#	proxy = http://127.0.0.1:8088/
+#	proxy = http://127.0.0.1:8088
 #	sslVerify = false
 #	proxy = http://pkuproxy.phiy.me:1898/
 #	proxy = http://127.0.0.1:1080/
 	postBuffer = 524288000
+#[https]
+#	proxy = http://127.0.0.1:8088
+#	sslVerify = false
+; [http "https://github.com"]
+	; proxy = http://127.0.0.1:8088
+	; sslVerify = false
+; [https "https://github.com"]
+	; proxy = http://127.0.0.1:8088
+	; sslVerify = false
 [credential]
 #	helper = store
 #	helper = /usr/lib/git-core/git-credential-gnome-keyring

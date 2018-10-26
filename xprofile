@@ -8,7 +8,8 @@ wmname LG3D
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 export XMODIFIERS="@im=fcitx"
-#systemctl start --user fcitx
+# systemctl start --user fcitx
+# systemctl start --user sogou-qimpanel
 # fcitx-qimpanel &
 fcitx -d
 sogou-qimpanel
@@ -22,9 +23,13 @@ compton -b
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export SSH_AUTH_SOCK
 
-# start clipboard
-clipit &
+# clipboard
+# clipit &
+# systemctl --user start clipit
 # parcellite &
+
+# nutstore
+# systemctl --user start nutstore
 
 # bluetooth
 # blueman-applet &
@@ -33,19 +38,16 @@ clipit &
 # transmission-gtk -m &
 
 # shutter
-shutter --min_at_startup &
+# shutter --min_at_startup &
 
-# automount
-# pkttyagent &
-# udiskie -As &
-# devmon &
+# file manager daemon
 pcmanfm -d &
 
 # conky
 start-conky &
 
 # vim
-mkdir -p /tmp/vim_undodir
+# mkdir -p /tmp/vim_undodir
 
 # emacs
 mkdir -p /tmp/emacs
@@ -54,11 +56,9 @@ mkdir -p /tmp/emacs
 #urxvtc
 
 # start pulseaudio and system tray for it
-start-pulseaudio-x11
-pasystray &
+# start-pulseaudio-x11
+# pasystray &
 
-# aria2
-aria2c -D
-
-# cache dmenu
-dmenu_path > /dev/null
+# nutstore
+# systemctl --user start nutstore
+# dex /opt/nutstore/gnome-config/autostart/nutstore-daemon.desktop

@@ -13,6 +13,7 @@ HOME_DIR = os.getenv('HOME')
 CONF_GROUP_0 = (
     '.ocamlinit',
     '.bashrc', '.bash_profile',
+    '.vimrc', '.gvimrc',
     '.fbtermrc', '.tmux.conf',
     '.gemrc', '.npmrc',
     '.gitconfig', '.hgrc',
@@ -43,19 +44,22 @@ def backup(src_dir=HOME_DIR, dst_dir=BACKUP_DIR):
     for conf in CONF_GROUP_0:
         src = os.path.join(src_dir, conf)
         dst = os.path.join(dst_dir, conf.lstrip('.'))
-        shutil.copy(src, dst)
+        if os.path.exists(src):
+            shutil.copy(src, dst)
 
     for conf in CONF_GROUP_1:
         src = os.path.join(src_dir, conf)
         dst = os.path.join(dst_dir, conf.lstrip('.'))
-        os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
-        shutil.copy(src, dst)
+        if os.path.exists(src):
+            os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
+            shutil.copy(src, dst)
 
     for conf in CONF_GROUP_2:
         src = os.path.join(src_dir, conf)
         dst = os.path.join(dst_dir, re.sub(r'^.*?/', '', conf))
-        os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
-        shutil.copy(src, dst)
+        if os.path.exists(src):
+            os.makedirs(os.path.dirname(dst), mode=0o755, exist_ok=True)
+            shutil.copy(src, dst)
 
 
 def restore():
