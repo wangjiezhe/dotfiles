@@ -52,7 +52,7 @@ Plug 'mhinz/vim-startify'                                     " The fancy start 
 Plug 'plasticboy/vim-markdown'                                " Markdown Vim Mode
 Plug 'Shougo/echodoc.vim'                                     " Displays function signatures from completions in the command line
 Plug 'ludovicchabant/vim-gutentags'                           " A Vim plugin that manages your tag files
-Plug 'skywind3000/gutentags_plus'                             " The right way to use gtags with gutentags
+" Plug 'skywind3000/gutentags_plus'                             " The right way to use gtags with gutentags
 Plug 'sillybun/vim-autodoc'                                   " Add type hints automatically
 Plug 'sillybun/vim-repl', {'do': './install.sh'}              " Open the interactive environment with the code you are writing
 Plug 'jremmen/vim-ripgrep'                                    " Use RipGrep in Vim and display results in a quickfix list
@@ -371,16 +371,16 @@ let g:asyncrun_bell = 1
 let g:echodoc#enable_at_startup = 1
 
 """ vim-gutentags
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
-" let g:gutentags_define_advanced_commands = 1
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-let g:gutentags_ctags_extra_args = ['--fields=+niazfksS', '--extra=+qf']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" let $GTAGSLABEL = 'native-pygments'
+" let $GTAGSCONF = '/usr/share/gtags/gtags.conf'
+" " let g:gutentags_define_advanced_commands = 1
+" let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+" let g:gutentags_modules = ['ctags', 'gtags_cscope']
+" let g:gutentags_ctags_extra_args = ['--fields=+niazfksS', '--extra=+qf']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:gutentags_cache_dir = expand('~/.cache/vim/tags')
-let g:gutentags_auto_add_gtags_cscope = 0
+" let g:gutentags_auto_add_gtags_cscope = 0
 
 autocmd FileType gitcommit,gitconfig,gitignore let g:gutentags_enabled=0
 
@@ -457,40 +457,40 @@ endfunc
 
 
 
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+" " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
+" let s:opam_share_dir = system("opam config var share")
+" let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
-let s:opam_configuration = {}
+" let s:opam_configuration = {}
 
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+" function! OpamConfOcpIndent()
+  " execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
+" endfunction
+" let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
 
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+" function! OpamConfOcpIndex()
+  " execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
+" endfunction
+" let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
 
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+" function! OpamConfMerlin()
+  " let l:dir = s:opam_share_dir . "/merlin/vim"
+  " execute "set rtp+=" . l:dir
+" endfunction
+" let s:opam_configuration['merlin'] = function('OpamConfMerlin')
 
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-" ## added by OPAM user-setup for vim / ocp-indent ## 4689d324354014d1cb13ba92bb85eea5 ## you can edit, but keep this line
-if count(s:opam_available_tools,"ocp-indent") == 0
-  source "/home/wangjiezhe/.opam/system/share/ocp-indent/vim/indent/ocaml.vim"
-endif
-" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
+" let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+" let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+" let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
+" for tool in s:opam_packages
+  " " Respect package order (merlin should be after ocp-index)
+  " if count(s:opam_available_tools, tool) > 0
+    " call s:opam_configuration[tool]()
+  " endif
+" endfor
+" " ## end of OPAM user-setup addition for vim / base ## keep this line
+" " ## added by OPAM user-setup for vim / ocp-indent ## 4689d324354014d1cb13ba92bb85eea5 ## you can edit, but keep this line
+" if count(s:opam_available_tools,"ocp-indent") == 0
+  " source "/home/wangjiezhe/.opam/system/share/ocp-indent/vim/indent/ocaml.vim"
+" endif
+" " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line

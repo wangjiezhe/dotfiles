@@ -37,6 +37,7 @@ CONF_GROUP_2 = (
     '.config/pip/pip.conf',
     '.config/mpv/mpv.conf',
     '.config/rslsync/rslsync.conf',
+    '.config/yay/config.json',
 )
 
 
