@@ -2,7 +2,7 @@
 
 export LC_COLLATE=zh_CN.UTF8
 
-# set wmname
+### set wmname
 wmname LG3D
 
 export GTK_IM_MODULE="fcitx"
@@ -19,46 +19,51 @@ compton -b
 
 # xscreensaver -nosplash &
 
-# unlock keyring
+### unlock keyring
 eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 export SSH_AUTH_SOCK
 
-# clipboard
+### clipboard
 # clipit &
 # systemctl --user start clipit
 # parcellite &
 
-# nutstore
+### nutstore
 # systemctl --user start nutstore
 
-# bluetooth
+### bluetooth
 # blueman-applet &
 
-# transmission
-# transmission-gtk -m &
+### transmission
+transmission-gtk -m &
 
-# shutter
+### shutter
 # shutter --min_at_startup &
 
-# file manager daemon
+### file manager daemon
 pcmanfm -d &
 
-# conky
+### conky
 start-conky &
 
-# vim
+### vim
 # mkdir -p /tmp/vim_undodir
 
-# emacs
+### emacs
 mkdir -p /tmp/emacs
 
-# start terminal at autostart
-#urxvtc
+### start terminal at autostart
+# urxvtc
 
-# start pulseaudio and system tray for it
+### start pulseaudio and system tray for it
 # start-pulseaudio-x11
 # pasystray &
 
-# nutstore
+### nutstore
 # systemctl --user start nutstore
 # dex /opt/nutstore/gnome-config/autostart/nutstore-daemon.desktop
+
+### vdpau
+# export LIBVA_DRIVER_NAME=vdpau
+# export LIBVA_DRIVERS_PATH=/usr/lib/dri/
+# export VDPAU_DRIVER=nvidia

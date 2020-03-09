@@ -1,114 +1,179 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+export AUTOJUMP_IGNORE_CASE=1
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+export EDITOR="vim"
 
-# Default
-# export ZSH_THEME="robbyrussell"
-
-export ZSH_THEME="einbisschenmath"
-# export ZSH_THEME="terminalparty"
-
-# USER + HOST + DIRECTORY + GIT
-# export ZSH_THEME="intheloop"
-# export ZSH_THEME="strug"
-# export ZSH_THEME="agnoster"
-
-# USER + HOST + DIRECTORY + GIT + TIME
-# export ZSH_THEME="fino-time"
-# export ZSH_THEME="ys"
-# export ZSH_THEME="crcandy"
-# export ZSH_THEME="amuse"
-
-# USER + HOST + DIRECTORY + GIT + TIME(RIGHT)
-# export ZSH_THEME="pmcgee"
-# export ZSH_THEME="dst"
-
-# Random
-# export ZSH_THEME="random"
-
-# Unkown
-# export ZSH_THEME="emotty"
-
-# 为方便复制，右边的提示符只在最新的提示符上显示
-setopt transient_rprompt
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Uncomment this to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large reppermissiveositories much,
-# much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# For plugin copydir and copyfile
-alias pbcopy="xclip -sel clip"
-
-# For plugin history
 export HIST_STAMPS="yyyy-mm-dd"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(gitfast git-extras fedora cp history web-search rsync github
-        # emoji emoji-clock emotty command-not-found
-        docker docker-compose archlinux autojump autopep8 bgnotify colored-man-pages colorize
-        dircycle dirhistory dirpersist django encode64 extract fab fancy-ctrl-z gem adb
-        gitignore golang httpie mercurial nmap npm pep8 pip pylint python sudo svn themes zsh_reload
-        copydir copyfile
-        zshmarks)
-export plugins
-
-source "$ZSH"/oh-my-zsh.sh
-
-# Customize to your needs...
-
-# For plugin history
 export HISTSIZE=100000000
 export SAVEHIST=100000000
 
-# Alias
+export HISTCONTROL=ignorespace:erasedups
+export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
+
+export PATH=$HOME/bin:$HOME/.local/bin:$(yarn global bin):$HOME/.linuxbrew/bin:$(ruby -e 'print Gem.user_dir'):$HOME/go/bin:$HOME/.cabal/bin:$PATH
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
+
+export MANPATH=$MANPATH:$HOME/.linuxbrew/share/man
+export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
+export GOPATH=$HOME/go
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib
+
+export SBCL_HOME=/usr/lib/sbcl
+
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+# export GOPROXY=https://goproxy.io
+
+setopt ksh_option_print
+setopt no_share_history
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+
+# ==== 加载 zplugin ====
+
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+
+# ==== 加载 GitHub 插件 ====
+
+zplugin ice lucid wait
+zplugin light MichaelAquilina/zsh-you-should-use
+
+zplugin ice lucid wait
+zplugin light hlissner/zsh-autopair
+
+zplugin ice lucid wait
+zplugin light skywind3000/z.lua
+
+zplugin ice lucid wait='0' atload='_zsh_autosuggest_start'
+zplugin light zsh-users/zsh-autosuggestions
+bindkey '^ ' autosuggest-accept
+
+zplugin ice lucid wait
+zplugin light zdharma/fast-syntax-highlighting
+
+zplugin ice lucid wait
+zplugin light jocelynmallon/zshmarks
+
+# ==== 加载 OMZ 插件 ====
+
+zplugin snippet OMZ::lib/git.zsh
+
+zplugin snippet OMZ::lib/clipboard.zsh
+zplugin snippet OMZ::lib/completion.zsh
+zplugin snippet OMZ::lib/history.zsh
+zplugin snippet OMZ::lib/key-bindings.zsh
+zplugin snippet OMZ::lib/theme-and-appearance.zsh
+
+zplugin snippet OMZ::plugins/sudo/sudo.plugin.zsh
+
+zplugin ice lucid wait
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+
+zplugin snippet OMZ::plugins/git-extras/git-extras.plugin.zsh
+zplugin snippet OMZ::plugins/gitignore/gitignore.plugin.zsh
+zplugin snippet OMZ::plugins/github/github.plugin.zsh
+zplugin snippet OMZ::plugins/archlinux/archlinux.plugin.zsh
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+zplugin snippet OMZ::plugins/history/history.plugin.zsh
+zplugin snippet OMZ::plugins/encode64/encode64.plugin.zsh
+zplugin snippet OMZ::plugins/battery/battery.plugin.zsh
+zplugin snippet OMZ::plugins/colorize/colorize.plugin.zsh
+# zplugin snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
+zplugin snippet OMZ::plugins/copydir/copydir.plugin.zsh
+zplugin snippet OMZ::plugins/copyfile/copyfile.plugin.zsh
+zplugin snippet OMZ::plugins/cp/cp.plugin.zsh
+zplugin snippet OMZ::plugins/fancy-ctrl-z/fancy-ctrl-z.plugin.zsh
+zplugin snippet OMZ::plugins/heroku/heroku.plugin.zsh
+zplugin snippet OMZ::plugins/mercurial/mercurial.plugin.zsh
+zplugin snippet OMZ::plugins/nmap/nmap.plugin.zsh
+zplugin snippet OMZ::plugins/npm/npm.plugin.zsh
+zplugin snippet OMZ::plugins/rsync/rsync.plugin.zsh
+zplugin snippet OMZ::plugins/svn/svn.plugin.zsh
+zplugin snippet OMZ::plugins/dircycle/dircycle.plugin.zsh
+zplugin snippet OMZ::plugins/dirhistory/dirhistory.plugin.zsh
+zplugin snippet OMZ::plugins/dirpersist/dirpersist.plugin.zsh
+zplugin snippet OMZ::plugins/systemd/systemd.plugin.zsh
+zplugin snippet OMZ::plugins/percol/percol.plugin.zsh
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/extract
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/pip
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/gitfast
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/gem
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/pylint
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/tmux
+
+zplugin ice svn
+zplugin snippet OMZ::plugins/yarn
+
+zplugin ice as="completion"
+zplugin snippet OMZ::plugins/cargo/_cargo
+
+zplugin ice as="completion"
+zplugin snippet OMZ::plugins/rust/_rust
+
+zplugin ice as="completion"
+zplugin snippet OMZ::plugins/fd/_fd
+
+zplugin ice as="completion"
+zplugin snippet OMZ::plugins/httpie/_httpie
+
+zplugin ice as="completion"
+zplugin snippet OMZ::plugins/pep8/_pep8
+
+# ==== 主题 ====
+
+if [[ "$TERM" == "linux" ]]; then
+  export PURE_PROMPT_SYMBOL=">"
+  zplugin ice pick="async.zsh" src="pure.zsh" atload="prompt_pure_precmd"
+  zplugin light Aloxaf/pure
+else
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+
+  zplugin ice depth=1
+  zplugin light romkatv/powerlevel10k
+
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+
+# === Alias ===
+
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias pbcopy="xclip -sel clip"
 # alias sudo="sudo -E"
 alias gsubu="git submodule update --init --recursive"
 alias gfu="git fetch upstream"
 alias gmuo="git merge upstream/master origin/master"
 alias gmms="git merge master src"
 alias glga="git log --stat --decorate --graph --all --show-signature"
-unalias gap
-unalias gp
-unalias gsi
-unalias gm
+# unalias gap
+# unalias gp
+# unalias gsi
+# unalias gm
 alias gps="git push"
 alias lb="ls -B"
+alias ls="exa"
 alias l.="ls -d .*"
-alias l="ls -lh"
-alias la="ls -A"
-alias ll="ls -lAh"
+alias l="ls -l"
+#alias la="ls -A"
+alias ll="ls -la"
 alias zshrc='$EDITOR ~/.zshrc'
 alias h='history'
 alias hgrep="fc -El 0 | grep"
@@ -118,19 +183,18 @@ alias ack-grep="ack"
 # alias mv="amv -g"
 # alias cp="acp -g"
 # alias rm="gvfs-trash"
-alias yiy="sudo yum install -y"
-alias yuy="sudo yum upgrade -y"
-alias betty="$HOME/Downloads/github/betty/main.rb"
-alias bpython3="python3-bpython"
+# alias yiy="sudo yum install -y"
+# alias yuy="sudo yum upgrade -y"
+# alias betty="$HOME/Downloads/github/betty/main.rb"
 alias dfh="df -Th"
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
 # alias fd='find . -type d -name'
 # alias ff='find . -type f -name'
-alias pingtest="ping -c5 162.105.130.1"
-PIP_UPGRADE="$HOME/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
-alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
-alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
+# alias pingtest="ping -c5 162.105.130.1"
+# PIP_UPGRADE="$HOME/Downloads/github/wangjiezhe/MyScripts/pip_upgrade/pip_upgrade.py"
+# alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
+# alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
 alias dmesg="dmesg --color=always --reltime"
 # alias mpv="mpv --hwdec=vaapi --vo=vaapi"
@@ -138,7 +202,7 @@ alias dmesg="dmesg --color=always --reltime"
 alias sl=ls
 alias sudp=sudo
 alias suod=sudo
-alias vi=vim
+# alias vi=vim
 alias e="emacsclient -t"
 alias ee="emacs -nw"
 alias E="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
@@ -146,13 +210,12 @@ alias sc="systemctl"
 alias scu="systemctl --user"
 alias jj='jump'
 alias ssh-gbk='luit -encoding gbk ssh'
-alias yacl='yaourt -Sc'
+# alias yacl='yaourt -Sc'
 alias preview="fzf --preview 'bat --color always {}'"
+# alias nvrun="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
+
 # Global alias
 alias -g quiet="-q 2>/dev/null"        # Used for yum
-#alias -g wpp1='-e "http_proxy=http://pkuproxy.phiy.me:1898/" -e "https_proxy=http://pkuproxy.phiy.me:1898/"'        # Used for wget
-#alias -g gpp1="--http-proxy http://pkuproxy.phiy.me:1898/"        # Used for gem
-#alias -g cpp1="--proxy http://pkuproxy.phiy.me:1898/"
 alias -g wpp='-e "http_proxy=http://127.0.0.1:8088/" -e "https_proxy=http://127.0.0.1:8088/"'        # Used for wget
 alias -g gpp="--http-proxy http://127.0.0.1:8088/"        # Used for gem
 alias -g cpp="-k --proxy http://127.0.0.1:8088/"    # User for curl
@@ -168,9 +231,9 @@ alias -g LL="2>&1 | pygmentize | less"
 alias -g CA="2>&1 | cat -A"
 alias -g NE="2>/dev/null"
 alias -g NUL=">/dev/null 2>&1"
-alias -g PP="2>&1| pygmentize -l pytb"
+# alias -g PP="2>&1| pygmentize -l pytb"
 
-# User's function
+# ==== Functions ====
 
 exists() {
     which $1 &> /dev/null
@@ -233,14 +296,14 @@ duh() {
 }
 
 # Find the rpm that provides the command
-rpmfind() {
-    if [[ $# -eq 1 ]]
-    then
-        rpm -qf $(which $1)
-    else
-        echo "Usage: rpmfind command"
-    fi
-}
+# rpmfind() {
+#     if [[ $# -eq 1 ]]
+#     then
+#         rpm -qf $(which $1)
+#     else
+#         echo "Usage: rpmfind command"
+#     fi
+# }
 
 # ps grep
 psg () {
@@ -251,7 +314,7 @@ psgw () {
     ps auxww | grep -i "$@" | grep -v -e "grep .* -i"
 }
 
-export YUMDIR=/etc/yum.repos.d
+# export YUMDIR=/etc/yum.repos.d
 
 # git subtree push
 gsp () {
@@ -274,110 +337,6 @@ gsl () {
     git subtree pull -P $1 $1 master
 }
 
-# Path
-#PATH=$PATH:/sbin:/usr/sbin:/usr/local/sbin::/bin:/usr/bin:/usr/local/bin
-PATH=$HOME/bin:$HOME/.local/bin:$HOME/.vim/bin:$PATH
-PATH=$HOME/.cask/bin:$PATH
-#PATH=$PATH:/usr/lib64/sagemath/local/bin
-#PATH=$PATH:/usr/lib/TeXmacs/bin
-#PATH=$PATH:$HOME/Downloads/depot_tools
-#PATH=$PATH:/usr/lib64/qt4/bin
-PATH=$PATH:$HOME/.linuxbrew/bin
-#PATH=$PATH:/usr/local/MATLAB/R2014b/bin
-#PATH=$PATH:/usr/bin/core_perl:/usr/bin/site_perl:/usr/bin/vendor_perl
-PATH=$PATH:$(ruby -e 'print Gem.user_dir')/bin
-#PATH=$PATH:/usr/lib/ccache/bin
-PATH=$PATH:$HOME/go/bin
-PATH=$PATH:$(yarn global bin)
-PATH=$PATH:.
-export PATH
-# Path for pkg-config
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/lib64/pkgconfig:/usr/local/lib/pkgconfig
-
-export MANPATH=$MANPATH:$HOME/.linuxbrew/share/man
-export INFOPATH=$INFOPATH:$HOME/.linuxbrew/share/info
-export GOPATH=$HOME/go
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib
-
-export SBCL_HOME=/usr/lib/sbcl
-
-# fpath=(/usr/share/zsh/$(zsh --version|awk '{print $2}')/functions ${fpath})
-
-# Use fcitx rather than ibus
-#export GTK_IM_MODULE=fcitx
-#export QT_IM_MODULE=fcitx
-#export XMODIFIERS="@im=fcitx"
-
-# Settings for cheat
-export EDITOR="vim"
-#export ALTERNATE_EDITOR="emacs" EDITOR="emacsclient" VISUAL="emacsclient"
-# export ALTERNATE_EDITOR="" EDITOR="emacsclient -t -a emacs"
-export CHEATCOLOR=true
-fpath=($HOME/Downloads/github/cheat/cheat/autocompletion $fpath)
-
-# Enable autojump
-# Already enabled by oh-my-zsh plugin autojump
-# source /etc/profile.d/autojump.zsh
-# [[ -s $HOMME/.autojump/etc/profile.d/autojump.sh ]] \
-#       && source $HOME/.autojump/etc/profile.d/autojump.sh
-# Enable zsh tab completion
-autoload -U compinit && compinit -u
-# Always ignore case
-export AUTOJUMP_IGNORE_CASE=1
-
-# Swap Ctrl_L and CapsLock
-# Enable Ctrl+Alt+Backspace to kill X
-#if [[ -n $DISPLAY ]]; then
-#        setxkbmap -option ctrl:swapcaps
-#        setxkbmap -option terminate:ctrl_alt_bksp
-#        xmodmap ~/.xmodmap 2>/dev/null
-#fi
-
-# Colored man pages
-# Already enabled by oh-my-zsh plugin colored-man
-# export PAGER="vimpager"
-# export PAGER="most"
-# man() {
-#     env LESS_TERMCAP_mb=$'\E[01;31m' \
-#     LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-#     LESS_TERMCAP_me=$'\E[0m' \
-#     LESS_TERMCAP_se=$'\E[0m' \
-#     LESS_TERMCAP_so=$'\E[38;5;246m' \
-#     LESS_TERMCAP_ue=$'\E[0m' \
-#     LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-#     man "$@"
-# }
-
-# [ -f /usr/share/Modules/init/zsh ] && source /usr/share/Modules/init/zsh
-
-# autoload -Uz url-quote-magic
-
-# npm completion
-# enabled by oh-my-zsh plugin npm
-# source ~/.npm-completion.sh
-
-#PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-
-# source "/usr/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh"
-
-unset SSH_ASKPASS
-
-# pip zsh completion start
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip pip3
-# pip zsh completion end
-
-# rehash automatically
-setopt nohashdirs
-
 # Bing Dict Encapsulation
 function sword()
 {
@@ -388,11 +347,8 @@ function sword()
     local dotflg='.'
     local andflg='&'
     local qmflg='?'
-    lynx -accept_all_cookies -source "$prefix://www${dotflg}bing${dotflg}com/dict/search${qmflg}q=$word${andflg}qs=n${andflg}form=CM${andflg}pq=$word${andflg}sc=0-0${andflg}sp=-1${andflg}sk=" | html2text | sed '1,12d' | less
+    lynx -accept_all_cookies -source "$prefix://www${dotflg}bing${dotflg}com/dict/search${qmflg}q=$word${andflg}qs=n${andflg}form=CM${andflg}pq=$word${andflg}sc=0-0${andflg}sp=-1${andflg}sk=" | html2text2 | sed '1,12d' | less
 }
-
-# Pinyin completion
-#source_if_exists /usr/share/pinyin-completion/shell/pinyin-comp.zsh
 
 # Coloerd less
 #export LESS='-R'
@@ -406,73 +362,6 @@ ptyless() {
     rm -f /tmp/ptyless.$$
     zpty -d ptyless                   # remove used pty
 }
-
-# Explain shell
-explain () {
-  if [ "$#" -eq 0 ]; then
-    while read "cmd?Command: "; do
-      curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$cmd"
-    done
-    echo "Bye!"
-  elif [ "$#" -eq 1 ]; then
-    curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$1"
-  else
-    echo "Usage"
-    echo "explain                  interactive mode."
-    echo "explain 'cmd -o | ...'   one quoted command to explain it."
-  fi
-}
-
-# added by travis gem
-source_if_exists $HOME/.travis/travis.sh
-
-# python 命令行模式 自动补全
-# export PYTHONSTARTUP=~/.pythonstartup.py
-
-# setopt 的输出显示选项的开关状态
-setopt ksh_option_print
-
-# 不保存重复的历史记录项
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_ignore_all_dups
-
-export HISTCONTROL=ignorespace:erasedups
-export HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S'
-
-# z
-source_if_exists /usr/lib/z.sh
-export _Z_OWNER=wangjiezhe
-
-# percol
-source_if_exists /usr/share/zsh/plugins/percol/percol.plugin.zsh
-# zsh history search with percol
-if exists percol; then
-    percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
-
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
-fi
-
-# thefuck
-#if exists thefuck; then
-#    eval $(thefuck --alias)
-#fi
-
-# zsh-syntax-highlighting
-source_if_exists /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# zsh-suggestions
-source_if_exists /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-
-# racket
-source_if_exists /usr/share/racket/pkgs/shell-completion/racket-completion.zsh
 
 # opencc
 t2s() {
@@ -488,20 +377,6 @@ echo-t2s() {
         echo "$1" | opencc -c t2s --
 }
 
-#source /usr/share/nvm/init-nvm.sh
-
-# bundle
-export GEM_HOME=$(ruby -e 'print Gem.user_dir')
-
-# google-cloud-sdk
-source_if_exists /opt/google-cloud-sdk/completion.zsh.inc
-
-# vte
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
-
-# 剪贴板数据到QR码
 clipboard2qr () {
   data="$(xsel)"
   echo $data
@@ -546,10 +421,5 @@ else
   }
 fi
 
-setopt no_share_history
-
-# heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
-
-# opam configuration
-test -r /home/wangjiezhe/.opam/opam-init/init.zsh && . /home/wangjiezhe/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+zplugin ice lucid wait atload="zpcompinit; zpcdreplay; unalias gap gp gm gsi"
+zplugin snippet ~/.travis/travis.sh

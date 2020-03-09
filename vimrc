@@ -24,12 +24,13 @@ Plug 'rakr/vim-one'                                           " Adaptation of on
 " Plug 'NLKNguyen/papercolor-theme'                             " Light & Dark Vim color schemes inspired by Google's Material Design
 " Plug 'fmoralesc/molokayo'                                     " molokai variations
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yianwillis/vimcdoc'                                     " VIM Chinese documentaion
 Plug 'vim-airline/vim-airline'                                " lean & mean status/tabline for vim that's light as air (Replace powerline, vim-airline)
 Plug 'w0rp/ale'                                               " Asynchronous linting/fixing for Vim and Language Server Protocol (LSP) integration (Replace syntastic)
 Plug 'skywind3000/asyncrun.vim'                               " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }       " A tree explorer plugin for vim
-Plug 'Xuyuanp/nerdtree-git-plugin'                            " A plugin of NERDTree showing git status
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}          " A tree explorer plugin for vim
+Plug 'Xuyuanp/nerdtree-git-plugin',{'on': 'NERDTreeToggle'}   " A plugin of NERDTree showing git status
 Plug 'tpope/vim-surround'                                     " quoting/parenthesizing made simple
 Plug 'sheerun/vim-polyglot'                                   " A solid language pack for Vim
 Plug 'scrooloose/nerdcommenter'                               " Vim plugin for intensely orgasmic commenting
@@ -45,9 +46,9 @@ Plug 'tpope/vim-repeat'                                       " enable repeating
 Plug 'majutsushi/tagbar'                                      " Vim plugin that displays tags in a window, ordered by scope
 Plug 'mbbill/undotree'                                        " The ultimate undo history visualizer for VIM (Replace Gundo)
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }             " An asynchronous fuzzy finder (Replace CtrlP)
-Plug 'skywind3000/vim-keysound'                               " Play typewriter sound in Vim when you are typing a letter
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' } " A code-completion engine for Vim
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}           " Generates config files for YouCompleteMe
+"Plug 'skywind3000/vim-keysound'                               " Play typewriter sound in Vim when you are typing a letter
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all --system-boost --system-libclang' } " A code-completion engine for Vim
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}           " Generates config files for YouCompleteMe
 Plug 'mhinz/vim-startify'                                     " The fancy start screen for Vim
 Plug 'plasticboy/vim-markdown'                                " Markdown Vim Mode
 Plug 'Shougo/echodoc.vim'                                     " Displays function signatures from completions in the command line
@@ -63,6 +64,13 @@ Plug 'lilydjwg/fcitx.vim'                                     " keep and restore
 Plug 'blockloop/vim-swigjs'                                   " Swig vim syntax highlighting
 Plug 'gisphm/vim-gitignore'                                   " Gitignore plugin for Vim
 Plug 'tpope/vim-fugitive'                                     " A Git wrapper so awesome, it should be illegal
+" if has('nvim')
+    " Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+" else
+    " Plug 'Shougo/defx.nvim'                                     " The dark powered file explorer implementation
+    " Plug 'roxma/nvim-yarp'
+    " Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 
 call plug#end()
 
@@ -197,6 +205,7 @@ autocmd BufNewFile,BufRead *.sage,*.spyx,*.pyx setfiletype python
 " autocmd FileType python set wrap
 autocmd FileType vim set textwidth=0
 autocmd FileType gitcommit,gitconfig,gitignore set noexpandtab
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
 
@@ -205,7 +214,6 @@ autocmd FileType gitcommit,gitconfig,gitignore set noexpandtab
 """ NERDTree
 map <F2> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -291,6 +299,9 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
+let g:ale_linters = {
+    \ 'sh': ['language-server'],
+    \ }
 
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
@@ -299,6 +310,7 @@ let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
 let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
+
 
 " hi! clear SpellBad
 " hi! clear SpellCap
@@ -337,27 +349,27 @@ let g:keysound_volume = 1000
 
 
 """ YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
-            \ }
+" let g:ycm_semantic_triggers =  {
+            " \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+            " \ 'cs,lua,javascript': ['re!\w{2}'],
+            " \ }
 
-let g:ycm_filetype_blacklist = {
-            \ 'text': 1,
-            \ }
+" let g:ycm_filetype_blacklist = {
+            " \ 'text': 1,
+            " \ }
 
-set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_complete_in_comments=1
-let g:ycm_seed_identifiers_with_syntax=1
+" set completeopt=menu,menuone
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_server_log_level = 'info'
+" let g:ycm_min_num_identifier_candidate_chars = 2
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" let g:ycm_complete_in_strings=1
+" let g:ycm_complete_in_comments=1
+" let g:ycm_seed_identifiers_with_syntax=1
 
 " autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
@@ -403,6 +415,18 @@ endif
 function! StartifyEntryFormat()
     return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
+
+
+""" defx.nvim
+" call defx#custom#option('_', {
+      " \ 'winwidth': 30,
+      " \ 'split': 'vertical',
+      " \ 'direction': 'botright',
+      " \ 'show_ignored_files': 0,
+      " \ 'buffer_name': '',
+      " \ 'toggle': 1,
+      " \ 'resume': 1
+      " \ })
 
 
 
