@@ -21,7 +21,7 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib
 export SBCL_HOME=/usr/lib/sbcl
 
 export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
+export GOPROXY=https://goproxy.cn,direct
 # export GOPROXY=https://goproxy.io
 
 setopt ksh_option_print
@@ -180,8 +180,8 @@ alias hgrep="fc -El 0 | grep"
 alias help='man'
 alias cman="man -L zh_CN.utf8"        # Man in Chinese
 alias ack-grep="ack"
-# alias mv="amv -g"
-# alias cp="acp -g"
+alias mv="advmv -g"
+alias cp="advcp -g"
 # alias rm="gvfs-trash"
 # alias yiy="sudo yum install -y"
 # alias yuy="sudo yum upgrade -y"
@@ -196,7 +196,7 @@ alias duf='du -sh *'
 # alias pip2-upgrade="sudo -H python2 ${PIP_UPGRADE}"
 # alias pip3-upgrade="sudo -H python3 ${PIP_UPGRADE}"
 # alias yaourt4="yaourt --aur-url https://aur4.archlinux.org"
-alias dmesg="dmesg --color=always --reltime"
+alias dmesg="dmesg -H --color=always"
 # alias mpv="mpv --hwdec=vaapi --vo=vaapi"
 # alias pip-upgrade="yolk -U|cut -d ' ' -f 1|xargs pip install --upgrade"
 alias sl=ls
